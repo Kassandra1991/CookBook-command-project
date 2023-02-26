@@ -56,15 +56,71 @@
 		FA68842129ABDFE500F14554 /* СookBook */ = {
 			isa = PBXGroup;
 			children = (
+				FA90E39029ABE77700276DF0 /* Application */,
+				FA90E39229ABE7B300276DF0 /* Helper */,
+				FA90E39129ABE78B00276DF0 /* SupportingFile */,
+				FA90E39429ABE86000276DF0 /* Model */,
+				FA90E39529ABE87000276DF0 /* ViewController */,
+				FA904A0729ABED7F00AC49AC /* View */,
+			);
+			path = "СookBook";
+			sourceTree = "<group>";
+		};
+		FA904A0729ABED7F00AC49AC /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA90E39029ABE77700276DF0 /* Application */ = {
+			isa = PBXGroup;
+			children = (
 				FA68842229ABDFE500F14554 /* AppDelegate.swift */,
 				FA68842429ABDFE500F14554 /* SceneDelegate.swift */,
-				FA68842629ABDFE500F14554 /* ViewController.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		FA90E39129ABE78B00276DF0 /* SupportingFile */ = {
+			isa = PBXGroup;
+			children = (
 				FA68842829ABDFE500F14554 /* Main.storyboard */,
 				FA68842B29ABDFE900F14554 /* Assets.xcassets */,
 				FA68842D29ABDFE900F14554 /* LaunchScreen.storyboard */,
 				FA68843029ABDFE900F14554 /* Info.plist */,
 			);
-			path = "СookBook";
+			path = SupportingFile;
+			sourceTree = "<group>";
+		};
+		FA90E39229ABE7B300276DF0 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				FA90E39329ABE7C600276DF0 /* Extension */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		FA90E39329ABE7C600276DF0 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FA90E39429ABE86000276DF0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA90E39529ABE87000276DF0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FA68842629ABDFE500F14554 /* ViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,7 +345,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q6CQH2T6SR;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "СookBook/Info.plist";
+				INFOPLIST_FILE = "СookBook/SupportingFile/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -321,7 +377,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q6CQH2T6SR;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "СookBook/Info.plist";
+				INFOPLIST_FILE = "СookBook/SupportingFile/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
