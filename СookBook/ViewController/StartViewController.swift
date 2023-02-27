@@ -7,12 +7,13 @@
 
 import UIKit
 
-class StartViewController: UIViewController {
+final class StartViewController: UIViewController {
 
+    // MARK: - property
     private let backgroundImage = UIImageView()
-    private let letsCookingLabel = UILabel()
-    private let findRecipesLabel = UILabel()
-    private let startCookingButton = UIButton(type: .system)
+    private let mainLabel = UILabel()
+    private let subheadingLabel = UILabel()
+    private let startButton = UIButton(type: .system)
     private let darkOverlay = UIView()
 
     lazy var stackView: UIStackView = {
@@ -22,71 +23,77 @@ class StartViewController: UIViewController {
         stack.alignment = .center
         stack.distribution = .fill
         stack.translatesAutoresizingMaskIntoConstraints = false
-        [letsCookingLabel, findRecipesLabel, startCookingButton ].forEach({ stack.addArrangedSubview($0) })
+        [mainLabel, subheadingLabel, startButton ].forEach({ stack.addArrangedSubview($0) })
         return stack
     }()
 
+    // MARK: - life cycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        setupConstraints()
-        setupTargets()
+        addSubViews()
+        configure()
+        setConstraints()
     }
 
-    func setupUI() {
-        // MARK: Backgorund Image
-        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImage.image = UIImage(named: "background_launchscreen")
-        backgroundImage.contentMode = .scaleAspectFill
+    // MARK: - flow funcs
+    private func configure() {
+        configureView()
+        configureLabel()
+        configureButton()
+    }
+
+    private func addSubViews() {
         view.addSubview(backgroundImage)
-
-        // MARK: Dark Overlay
-        darkOverlay.translatesAutoresizingMaskIntoConstraints = false
-        darkOverlay.backgroundColor = .black
-        darkOverlay.alpha = 0.18
         view.addSubview(darkOverlay)
-
-        // MARK: Let's Cooking Label
-        letsCookingLabel.numberOfLines = 0
-        letsCookingLabel.text = "Let's Cooking"
-        letsCookingLabel.textAlignment = .center
-        letsCookingLabel.font = .systemFont(ofSize: 60, weight: .heavy)
-        letsCookingLabel.textColor = .white
-
-        // MARK: Find Recipes Label
-        findRecipesLabel.text = "Find best recipes for cooking"
-        findRecipesLabel.font = .preferredFont(forTextStyle: .body)
-        findRecipesLabel.textColor = .white
-
-        // MARK: Start Cooking Button
-        startCookingButton.setTitle("Start cooking", for: .normal)
-        startCookingButton.setTitleColor(.white, for: .normal)
-        startCookingButton.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        startCookingButton.backgroundColor = .systemPink
-        startCookingButton.layer.cornerRadius = 10
-
         view.addSubview(stackView)
     }
 
-    func setupConstraints() {
+    private func configureView() {
+        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImage.image = UIImage(named: "background_launchscreen")
+        backgroundImage.contentMode = .scaleAspectFill
+
+        darkOverlay.translatesAutoresizingMaskIntoConstraints = false
+        darkOverlay.backgroundColor = .black
+        darkOverlay.alpha = 0.18
+    }
+
+    private func configureLabel() {
+        mainLabel.numberOfLines = 0
+        mainLabel.text = "Let's Cooking"
+        mainLabel.textAlignment = .center
+        mainLabel.font = .systemFont(ofSize: 60, weight: .heavy)
+        mainLabel.textColor = .white
+
+        subheadingLabel.text = "Find best recipes for cooking"
+        subheadingLabel.font = .preferredFont(forTextStyle: .body)
+        subheadingLabel.textColor = .white
+    }
+
+    private func configureButton() {
+        startButton.setTitle("Start cooking", for: .normal)
+        startButton.setTitleColor(.white, for: .normal)
+        startButton.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+        startButton.backgroundColor = .systemPink
+        startButton.layer.cornerRadius = 10
+        startButton.addTarget(self, action: #selector(startCookingButtonTapped), for: .touchUpInside)
+    }
+
+    private func setConstraints() {
         NSLayoutConstraint.activate([
-            // MARK: Background Image
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            // MARK: Dark Overlay
             darkOverlay.topAnchor.constraint(equalTo: view.topAnchor),
             darkOverlay.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             darkOverlay.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             darkOverlay.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            // MARK: Start Cooking Button
-            startCookingButton.widthAnchor.constraint(equalToConstant: 200),
-            startCookingButton.heightAnchor.constraint(equalToConstant: 50),
+            startButton.widthAnchor.constraint(equalToConstant: 200),
+            startButton.heightAnchor.constraint(equalToConstant: 50),
 
-            // MARK: StackView
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
@@ -94,12 +101,7 @@ class StartViewController: UIViewController {
         ])
     }
 
-    func setupTargets() {
-        startCookingButton.addTarget(self, action: #selector(startCookingButtonDidTapped), for: .touchUpInside)
-    }
-
-    @objc private func startCookingButtonDidTapped() {
-        // TODO: transition to the next VC
+    @objc private func startCookingButtonTapped() {
         let secondVC = ViewController()
         self.navigationController?.pushViewController(secondVC, animated: true)
     }
