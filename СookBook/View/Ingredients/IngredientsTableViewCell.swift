@@ -22,6 +22,5 @@ class IngredientTableViewCell: UITableViewCell {
 
     func configureImageView() {
         ingredientImage.layer.cornerRadius = 12
-        ingredientImage.contentMode = .scaleAspectFill
     }
 }

@@ -45,6 +45,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8EDB329E29AE85A200DA5B61 /* Ingredients */ = {
+			isa = PBXGroup;
+			children = (
+				8E92D31929ADFDFD0082B022 /* IngredientsTableViewCell.swift */,
+				8E92D31B29ADFE080082B022 /* IngredientTableViewCell.xib */,
+				8E92D31D29ADFF990082B022 /* IngredientHeaderView.swift */,
+				8E92D31F29ADFFAB0082B022 /* IngredientHeaderView.xib */,
+			);
+			path = Ingredients;
+			sourceTree = "<group>";
+		};
 		FA68841629ABDFE500F14554 = {
 			isa = PBXGroup;
 			children = (
@@ -77,10 +88,7 @@
 		FA904A0729ABED7F00AC49AC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8E92D31929ADFDFD0082B022 /* IngredientsTableViewCell.swift */,
-				8E92D31B29ADFE080082B022 /* IngredientTableViewCell.xib */,
-				8E92D31D29ADFF990082B022 /* IngredientHeaderView.swift */,
-				8E92D31F29ADFFAB0082B022 /* IngredientHeaderView.xib */,
+				8EDB329E29AE85A200DA5B61 /* Ingredients */,
 			);
 			path = View;
 			sourceTree = "<group>";

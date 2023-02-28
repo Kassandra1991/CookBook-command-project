@@ -1,12 +1,30 @@
 import UIKit
 
+struct Ingredients {
+    var ingredientName: String
+    var quantity: String
+}
+
 class RecipeViewController: UIViewController {
+    // MARK: - constant
+    private let headerHeight: CGFloat = 44
 
     // MARK: - property
     private let makeLabel = UILabel()
     private let recipeImageView = UIImageView()
     private var ingredientTableView = UITableView()
 
+    var ingredients: [Ingredients] = [
+        Ingredients(ingredientName: "Apples", quantity: "4-5qty"),
+        Ingredients(ingredientName: "Flower", quantity: "150g"),
+        Ingredients(ingredientName: "Eggs", quantity: "4qty"),
+        Ingredients(ingredientName: "Shugar", quantity: "200g"),
+        Ingredients(ingredientName: "Vanila sugar", quantity: "1sp"),
+        Ingredients(ingredientName: "Cinnamon", quantity: "2sp"),
+        Ingredients(ingredientName: "Baking powder", quantity: "0,5sp"),
+        Ingredients(ingredientName: "Lemon juice", quantity: "0,5ps"),
+        Ingredients(ingredientName: "Sugar powder", quantity: "2sp"),
+    ]
     // MARK: - life cycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -14,13 +32,16 @@ class RecipeViewController: UIViewController {
         addSubViews()
         configure()
         setConstraints()
+
         ingredientTableView.delegate = self
         ingredientTableView.dataSource = self
         ingredientTableView.separatorStyle = .none
         ingredientTableView.register(UINib(nibName: "IngredientTableViewCell", bundle: nil), forCellReuseIdentifier: "IngredientTableViewCell")
         ingredientTableView.register(UINib(nibName: "IngredientHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "IngredientHeaderView")
-
         ingredientTableView.allowsMultipleSelection = true
+
+        let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: RecipeViewController.self, action: #selector(backButtonAction))
+        navigationItem.leftBarButtonItem = backButtonItem
     }
 
     // MARK: - flow funcs
@@ -75,36 +96,32 @@ class RecipeViewController: UIViewController {
             ingredientTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+
+    @objc func backButtonAction() {
+        print("back")
+    }
 }
 
 // MARK: - extension Delegate
 extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
-
-    public func numberOfSectionsInTableView(tableView: UITableView?) -> Int {
-        return 1
-    }
-
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        ingredients.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientTableViewCell", for: indexPath) as! IngredientTableViewCell
-        cell.selectionStyle = .none
+        let item = ingredients[indexPath.row]
+        cell.ingredientLabel.text = item.ingredientName
+        cell.quantityLabel.text = item.quantity
         return cell
     }
 
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier:
-                       "IngredientHeaderView") as! IngredientHeaderView
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "IngredientHeaderView") as! IngredientHeaderView
         return header
     }
 
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44
-    }
-
-    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.accessoryType = (cell.isSelected) ? .checkmark : .none
+        return headerHeight
     }
 }
