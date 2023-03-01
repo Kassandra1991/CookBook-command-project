@@ -118,9 +118,11 @@ class MainViewController: UIViewController {
     Item(id: 2, title: "Chicken soup", category: "Noodle", image: "ramen3", bookmark: "bookmark", time: 19, isFavorite: false)
     ]
     
+    private let categories: [String] = ["Salad", "Breakfast", "Appetizer", "Noodle", "Lunch", "Dessert"]
+    
     private var trends: [String]?
-    private var categories: [String]?
     private lazy var tableView = UITableView()
+    private let viewForHeaderInSection = CategoriesView()
     
     // MARK: - life cycle funcs
     override func viewDidLoad() {
@@ -162,6 +164,7 @@ class MainViewController: UIViewController {
     
     func configureView() {
         view.backgroundColor = .white
+        viewForHeaderInSection.categoriesArray = categories
     }
     
     private func configureTableView() {
@@ -257,6 +260,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 104
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return self.viewForHeaderInSection
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 106
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
