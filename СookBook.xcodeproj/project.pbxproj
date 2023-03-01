@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E92D31429ADFC730082B022 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E92D31329ADFC730082B022 /* RecipeViewController.swift */; };
+		8E92D31A29ADFDFE0082B022 /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E92D31929ADFDFD0082B022 /* IngredientsTableViewCell.swift */; };
+		8E92D31C29ADFE080082B022 /* IngredientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E92D31B29ADFE080082B022 /* IngredientTableViewCell.xib */; };
+		8E92D31E29ADFF990082B022 /* IngredientHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E92D31D29ADFF990082B022 /* IngredientHeaderView.swift */; };
+		8E92D32029ADFFAB0082B022 /* IngredientHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E92D31F29ADFFAB0082B022 /* IngredientHeaderView.xib */; };
 		1870F43A29ACE1B9009E8C53 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870F43929ACE1B9009E8C53 /* StartViewController.swift */; };
 		22F2814F29AF6463005CB4F7 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2814E29AF6463005CB4F7 /* UIColor + Extension.swift */; };
 		22F2815129AF6473005CB4F7 /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2815029AF6473005CB4F7 /* UIFont + Extension.swift */; };
@@ -21,6 +26,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E92D31329ADFC730082B022 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
+		8E92D31929ADFDFD0082B022 /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
+		8E92D31B29ADFE080082B022 /* IngredientTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IngredientTableViewCell.xib; sourceTree = "<group>"; };
+		8E92D31D29ADFF990082B022 /* IngredientHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientHeaderView.swift; sourceTree = "<group>"; };
+		8E92D31F29ADFFAB0082B022 /* IngredientHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientHeaderView.xib; sourceTree = "<group>"; };
 		1870F43929ACE1B9009E8C53 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		22F2814E29AF6463005CB4F7 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor + Extension.swift"; path = "СookBook/Helper/Extension/UIColor + Extension.swift"; sourceTree = SOURCE_ROOT; };
 		22F2815029AF6473005CB4F7 /* UIFont + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIFont + Extension.swift"; path = "СookBook/Helper/Extension/UIFont + Extension.swift"; sourceTree = SOURCE_ROOT; };
@@ -64,6 +74,15 @@
 				22F2815729AF656E005CB4F7 /* Poppins-Regular.ttf */,
 			);
 			path = Fonts;
+		8EDB329E29AE85A200DA5B61 /* Ingredients */ = {
+			isa = PBXGroup;
+			children = (
+				8E92D31929ADFDFD0082B022 /* IngredientsTableViewCell.swift */,
+				8E92D31B29ADFE080082B022 /* IngredientTableViewCell.xib */,
+				8E92D31D29ADFF990082B022 /* IngredientHeaderView.swift */,
+				8E92D31F29ADFFAB0082B022 /* IngredientHeaderView.xib */,
+			);
+			path = Ingredients;
 			sourceTree = "<group>";
 		};
 		FA68841629ABDFE500F14554 = {
@@ -99,6 +118,7 @@
 		FA904A0729ABED7F00AC49AC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8EDB329E29AE85A200DA5B61 /* Ingredients */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -141,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				FA68842629ABDFE500F14554 /* ViewController.swift */,
+				8E92D31329ADFC730082B022 /* RecipeViewController.swift */,
 				1870F43929ACE1B9009E8C53 /* StartViewController.swift */,
 			);
 			path = ViewController;
@@ -204,6 +225,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E92D32029ADFFAB0082B022 /* IngredientHeaderView.xib in Resources */,
+				8E92D31C29ADFE080082B022 /* IngredientTableViewCell.xib in Resources */,
 				FA68842F29ABDFE900F14554 /* LaunchScreen.storyboard in Resources */,
 				22F2815629AF6562005CB4F7 /* Poppins-Bold.ttf in Resources */,
 				FA68842C29ABDFE900F14554 /* Assets.xcassets in Resources */,
@@ -219,6 +242,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				22F2815129AF6473005CB4F7 /* UIFont + Extension.swift in Sources */,
+				8E92D31A29ADFDFE0082B022 /* IngredientsTableViewCell.swift in Sources */,
+				8E92D31429ADFC730082B022 /* RecipeViewController.swift in Sources */,
+				8E92D31E29ADFF990082B022 /* IngredientHeaderView.swift in Sources */,
 				FA68842729ABDFE500F14554 /* ViewController.swift in Sources */,
 				1870F43A29ACE1B9009E8C53 /* StartViewController.swift in Sources */,
 				FA68842329ABDFE500F14554 /* AppDelegate.swift in Sources */,
