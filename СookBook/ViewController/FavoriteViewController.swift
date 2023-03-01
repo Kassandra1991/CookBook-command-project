@@ -18,5 +18,4 @@ class FavoriteViewController: UIViewController {
     
 
 
-
 }

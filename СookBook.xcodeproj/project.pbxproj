@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		84B3B7D129AD624B00EE32AC /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3B7D029AD624B00EE32AC /* FavoriteViewController.swift */; };
-		84B3B7D329AD629500EE32AC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3B7D229AD629500EE32AC /* SearchViewController.swift */; };
+		84B3B7D329AD629500EE32AC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3B7D229AD629500EE32AC /* MainViewController.swift */; };
+		84B3B7D529AF64CA00EE32AC /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3B7D429AF64CA00EE32AC /* TabBar.swift */; };
 		FA68842329ABDFE500F14554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA68842229ABDFE500F14554 /* AppDelegate.swift */; };
 		FA68842529ABDFE500F14554 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA68842429ABDFE500F14554 /* SceneDelegate.swift */; };
 		FA68842729ABDFE500F14554 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA68842629ABDFE500F14554 /* ViewController.swift */; };
@@ -18,7 +19,8 @@
 
 /* Begin PBXFileReference section */
 		84B3B7D029AD624B00EE32AC /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
-		84B3B7D229AD629500EE32AC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		84B3B7D229AD629500EE32AC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		84B3B7D429AF64CA00EE32AC /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		FA68841F29ABDFE500F14554 /* СookBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "СookBook.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA68842229ABDFE500F14554 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA68842429ABDFE500F14554 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,8 +122,9 @@
 			isa = PBXGroup;
 			children = (
 				FA68842629ABDFE500F14554 /* ViewController.swift */,
+				84B3B7D429AF64CA00EE32AC /* TabBar.swift */,
 				84B3B7D029AD624B00EE32AC /* FavoriteViewController.swift */,
-				84B3B7D229AD629500EE32AC /* SearchViewController.swift */,
+				84B3B7D229AD629500EE32AC /* MainViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -196,9 +199,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84B3B7D329AD629500EE32AC /* SearchViewController.swift in Sources */,
+				84B3B7D329AD629500EE32AC /* MainViewController.swift in Sources */,
 				FA68842729ABDFE500F14554 /* ViewController.swift in Sources */,
 				FA68842329ABDFE500F14554 /* AppDelegate.swift in Sources */,
+				84B3B7D529AF64CA00EE32AC /* TabBar.swift in Sources */,
 				84B3B7D129AD624B00EE32AC /* FavoriteViewController.swift in Sources */,
 				FA68842529ABDFE500F14554 /* SceneDelegate.swift in Sources */,
 			);
