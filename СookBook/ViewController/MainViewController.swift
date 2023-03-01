@@ -74,11 +74,53 @@ class MainViewController: UIViewController {
         return label
        }()
     
+    private lazy var trendStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 20
+        return stackView
+    }()
+    
+//    private lazy var trendImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        return imageView
+//    }()
     private lazy var trendImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "video")
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
+    
+    private lazy var bookmarkImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "bookmark")
+        return imageView
+    }()
+
+    private lazy var trendImageView2: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "video2")
+        return imageView
+    }()
+
+    private lazy var trendImageView3: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "video3")
+        return imageView
+    }()
+    //private let trendsImages: [String] = ["video","video2","video3"]
+    
+    private let items: [Item] = [
+    Item(id: 0, title: "Papper ramen", category: "Noodle", image: "ramen", bookmark: "bookmark", time: 10, isFavorite: false),
+    Item(id: 1, title: "Sweet souse noodle", category: "Lunch", image: "ramen2", bookmark: "bookmark", time: 15, isFavorite: false),
+    Item(id: 2, title: "Chicken soup", category: "Noodle", image: "ramen3", bookmark: "bookmark", time: 19, isFavorite: false)
+    ]
+    
+    private var trends: [String]?
+    private var categories: [String]?
+    private lazy var tableView = UITableView()
     
     // MARK: - life cycle funcs
     override func viewDidLoad() {
@@ -86,14 +128,14 @@ class MainViewController: UIViewController {
         addSubViews()
         configure()
         setConstraints()
-
     }
     
 // MARK: - flow funcs
     private func configure() {
         configureView()
-        configureLabel()
+        configureTableView()
         configureButton()
+        
     }
     
     private func addSubViews() {
@@ -103,19 +145,29 @@ class MainViewController: UIViewController {
         mainStackView.addArrangedSubview(searchView)
         searchView.addSubview(searchTextField)
         mainStackView.addArrangedSubview(trendingScrollView)
-        for _ in 0...10 {
-            trendingScrollView.addSubview(trendingContentView)
-            trendingContentView.addSubview(titleTrendLabel)
-            trendingContentView.addSubview(trendImageView)
-        }
+        trendingScrollView.addSubview(trendingContentView)
+        trendingContentView.addSubview(titleTrendLabel)
+        trendingContentView.addSubview(trendStackView)
+
+//        for item in 0...trendsImages.count-1 {
+//            let image = trendsImages[item]
+//            trendImageView.image = UIImage(named: image)
+//            trendStackView.addArrangedSubview(trendImageView)
+//        }
+        trendStackView.addArrangedSubview(trendImageView)
+        trendStackView.addArrangedSubview(trendImageView2)
+        trendStackView.addArrangedSubview(trendImageView3)
+        mainStackView.addArrangedSubview(tableView)
     }
     
-    private func configureView() {
+    func configureView() {
         view.backgroundColor = .white
     }
     
-    private func configureLabel() {
-        
+    private func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(MainTableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     private func configureButton() {
@@ -144,7 +196,6 @@ class MainViewController: UIViewController {
             receipeLabel.bottomAnchor.constraint(equalTo: topView.bottomAnchor),
             receipeLabel.heightAnchor.constraint(equalToConstant: 58),
             receipeLabel.widthAnchor.constraint(equalToConstant: 206),
-
         ])
         searchView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -178,13 +229,43 @@ class MainViewController: UIViewController {
             titleTrendLabel.topAnchor.constraint(equalTo: trendingContentView.topAnchor),
             titleTrendLabel.widthAnchor.constraint(equalTo: trendingContentView.widthAnchor, multiplier: 0.75)
         ])
+        trendStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            trendStackView.topAnchor.constraint(equalTo: trendingContentView.topAnchor),
+            trendStackView.leadingAnchor.constraint(equalTo: trendingContentView.leadingAnchor),
+            trendStackView.trailingAnchor.constraint(equalTo: trendingContentView.trailingAnchor),
+            trendStackView.bottomAnchor.constraint(equalTo: trendingContentView.bottomAnchor),
+        ])
         trendImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             trendImageView.topAnchor.constraint(equalTo: titleTrendLabel.bottomAnchor, constant: 16),
             trendImageView.widthAnchor.constraint(equalToConstant: 280),
             trendImageView.heightAnchor.constraint(equalToConstant: 180),
         ])
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: trendStackView.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
+        ])
     }
 }
 
 // MARK: - Delegate
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 104
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MainTableViewCell
+        cell.configure(with: items[indexPath.row])
+        return  cell
+    }
+}
