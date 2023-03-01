@@ -20,8 +20,8 @@
 
 /* Begin PBXFileReference section */
 		1825BEEC29AD5E1900EF44C0 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
-		1825BEEE29AD775500EF44C0 /* FavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoritesTableViewCell.swift; path = "СookBook/ViewController/FavoritesTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
-		1848BA5929AF78BF00677B3D /* FavoriteRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoriteRecipe.swift; path = "СookBook/ViewController/FavoriteRecipe.swift"; sourceTree = SOURCE_ROOT; };
+		1825BEEE29AD775500EF44C0 /* FavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoritesTableViewCell.swift; path = "СookBook/View/FavoritesTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
+		1848BA5929AF78BF00677B3D /* FavoriteRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoriteRecipe.swift; path = "СookBook/Model/FavoriteRecipe.swift"; sourceTree = SOURCE_ROOT; };
 		1870F43929ACE1B9009E8C53 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		FA68841F29ABDFE500F14554 /* СookBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "СookBook.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA68842229ABDFE500F14554 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
