@@ -32,16 +32,6 @@ class RecipeViewController: UIViewController {
         addSubViews()
         configure()
         setConstraints()
-
-        ingredientTableView.delegate = self
-        ingredientTableView.dataSource = self
-        ingredientTableView.separatorStyle = .none
-        ingredientTableView.register(UINib(nibName: "IngredientTableViewCell", bundle: nil), forCellReuseIdentifier: "IngredientTableViewCell")
-        ingredientTableView.register(UINib(nibName: "IngredientHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "IngredientHeaderView")
-        ingredientTableView.allowsMultipleSelection = true
-
-        let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: RecipeViewController.self, action: #selector(backButtonAction))
-        navigationItem.leftBarButtonItem = backButtonItem
     }
 
     // MARK: - flow funcs
@@ -55,6 +45,7 @@ class RecipeViewController: UIViewController {
         configureLabel()
         configureImageView()
         configureTableView()
+        configureNavigationBar()
         setConstraints()
     }
 
@@ -75,8 +66,19 @@ class RecipeViewController: UIViewController {
         recipeImageView.layer.cornerRadius = 12
     }
 
+    private func configureNavigationBar() {
+        let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: RecipeViewController.self, action: #selector(backButtonAction))
+        navigationItem.leftBarButtonItem = backButtonItem
+    }
+
     private func configureTableView() {
         ingredientTableView.translatesAutoresizingMaskIntoConstraints = false
+        ingredientTableView.delegate = self
+        ingredientTableView.dataSource = self
+        ingredientTableView.separatorStyle = .none
+        ingredientTableView.register(UINib(nibName: "IngredientTableViewCell", bundle: nil), forCellReuseIdentifier: "IngredientTableViewCell")
+        ingredientTableView.register(UINib(nibName: "IngredientHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "IngredientHeaderView")
+        ingredientTableView.allowsMultipleSelection = true
     }
 
     private func setConstraints() {
