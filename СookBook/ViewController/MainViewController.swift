@@ -3,7 +3,6 @@
 //  СookBook
 //
 //  Created by Aleksandra Asichka on 2023-02-27.
-//
 
 import UIKit
 
