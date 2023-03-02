@@ -10,8 +10,8 @@ import UIKit
 final class CategoriesView: UIView {
 
     //MARK: - var\let
-    lazy var sizeViewCategory = CGSize(width: 88, height: 32)
-    lazy var lineSpacing:CGFloat = 8
+    lazy var sizeViewCategory = CGSize(width: 100, height: 32)
+    lazy var componentsSpacing:CGFloat = 8
 
     lazy var categoriesArray = [String]()
 
@@ -52,11 +52,11 @@ final class CategoriesView: UIView {
 extension CategoriesView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: lineSpacing * 2, bottom: 0, right: lineSpacing * 2)
+        return UIEdgeInsets(top: 0, left: componentsSpacing * 2, bottom: 0, right: componentsSpacing * 2)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return lineSpacing
+        return componentsSpacing
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

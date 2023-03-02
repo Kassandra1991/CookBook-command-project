@@ -9,7 +9,7 @@ import UIKit
 
 final class CategoriesViewCell: UICollectionViewCell {
 
-    //MARK: - var\let
+    //MARK: - property
     let view = UIView()
     let label = UILabel()
 
@@ -20,7 +20,7 @@ final class CategoriesViewCell: UICollectionViewCell {
 
         label.text = name
         label.textAlignment = .center
-        label.textColor = .red
+        label.textColor = #colorLiteral(red: 0.8859912753, green: 0.2405898869, blue: 0.2409880459, alpha: 1)
 
         view.backgroundColor = .white
         view.layer.cornerRadius = 10
@@ -37,20 +37,20 @@ final class CategoriesViewCell: UICollectionViewCell {
         view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
 
-        label.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        label.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        label.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        label.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 8).isActive = true
+        label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
+        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12).isActive = true
+        label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12).isActive = true
     }
 
     func didSelectItem() {
-        view.backgroundColor = .red
+        view.backgroundColor  = #colorLiteral(red: 0.8859912753, green: 0.2405898869, blue: 0.2409880459, alpha: 1)
         label.textColor = .white
     }
 
     func didDeselectItem() {
         view.backgroundColor = .white
-        label.textColor = .red
+        label.textColor  = #colorLiteral(red: 0.8859912753, green: 0.2405898869, blue: 0.2409880459, alpha: 1)
     }
 }
 

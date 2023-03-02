@@ -137,7 +137,9 @@ class MainTableViewCell: UITableViewCell {
         bookmarkImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             bookmarkImageView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor, constant: -20),
-            bookmarkImageView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
+//            bookmarkImageView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
+//            bookmarkImageView.widthAnchor.constraint(equalToConstant: 24),
+//            bookmarkImageView.heightAnchor.constraint(equalToConstant: 24),
         ])
     }
 }

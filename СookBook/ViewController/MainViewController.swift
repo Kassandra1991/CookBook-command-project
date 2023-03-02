@@ -54,15 +54,15 @@ class MainViewController: UIViewController {
         return tf
     }()
     
-    private lazy var trendingScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        return scrollView
-    }()
-    
-    private lazy var trendingContentView: UIView = {
-        let view = UIView()
-        return view
-    }()
+//    private lazy var trendingScrollView: UIScrollView = {
+//        let scrollView = UIScrollView()
+//        return scrollView
+//    }()
+//
+//    private lazy var trendingContentView: UIView = {
+//        let view = UIView()
+//        return view
+//    }()
     
     let titleTrendLabel: UILabel = {
         let label = UILabel()
@@ -81,17 +81,13 @@ class MainViewController: UIViewController {
         stackView.spacing = 20
         return stackView
     }()
-    
+
 //    private lazy var trendImageView: UIImageView = {
 //        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "video")
+//        imageView.contentMode = .scaleAspectFill
 //        return imageView
 //    }()
-    private lazy var trendImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "video")
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
     
     private lazy var bookmarkImageView: UIImageView = {
         let imageView = UIImageView()
@@ -99,18 +95,17 @@ class MainViewController: UIViewController {
         return imageView
     }()
 
-    private lazy var trendImageView2: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "video2")
-        return imageView
-    }()
-
-    private lazy var trendImageView3: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "video3")
-        return imageView
-    }()
-    //private let trendsImages: [String] = ["video","video2","video3"]
+//    private lazy var trendImageView2: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "video2")
+//        return imageView
+//    }()
+//
+//    private lazy var trendImageView3: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "video3")
+//        return imageView
+//    }()
     
     private let items: [Item] = [
     Item(id: 0, title: "Papper ramen", category: "Noodle", image: "ramen", bookmark: "bookmark", time: 10, isFavorite: false),
@@ -120,8 +115,8 @@ class MainViewController: UIViewController {
     
     private let categories: [String] = ["Salad", "Breakfast", "Appetizer", "Noodle", "Lunch", "Dessert"]
     
-    private var trends: [String]?
     private lazy var tableView = UITableView()
+    private var trends = TrendsView()
     private let viewForHeaderInSection = CategoriesView()
     
     // MARK: - life cycle funcs
@@ -132,12 +127,15 @@ class MainViewController: UIViewController {
         setConstraints()
     }
     
+    override func viewDidLayoutSubviews() {
+        tableView.frame = view.safeAreaLayoutGuide.layoutFrame
+        trends.frame = .init(x: 0, y: 0, width: tableView.bounds.width, height: 180)
+    }
+    
 // MARK: - flow funcs
     private func configure() {
         configureView()
         configureTableView()
-        configureButton()
-        
     }
     
     private func addSubViews() {
@@ -146,19 +144,13 @@ class MainViewController: UIViewController {
         topView.addSubview(receipeLabel)
         mainStackView.addArrangedSubview(searchView)
         searchView.addSubview(searchTextField)
-        mainStackView.addArrangedSubview(trendingScrollView)
-        trendingScrollView.addSubview(trendingContentView)
-        trendingContentView.addSubview(titleTrendLabel)
-        trendingContentView.addSubview(trendStackView)
-
-//        for item in 0...trendsImages.count-1 {
-//            let image = trendsImages[item]
-//            trendImageView.image = UIImage(named: image)
-//            trendStackView.addArrangedSubview(trendImageView)
-//        }
-        trendStackView.addArrangedSubview(trendImageView)
-        trendStackView.addArrangedSubview(trendImageView2)
-        trendStackView.addArrangedSubview(trendImageView3)
+//        mainStackView.addArrangedSubview(trendingScrollView)
+//        trendingScrollView.addSubview(trendingContentView)
+//        trendingContentView.addSubview(titleTrendLabel)
+//        trendingContentView.addSubview(trendStackView)
+//        trendStackView.addArrangedSubview(trendImageView)
+//        trendStackView.addArrangedSubview(trendImageView2)
+//        trendStackView.addArrangedSubview(trendImageView3)
         mainStackView.addArrangedSubview(tableView)
     }
     
@@ -171,25 +163,22 @@ class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: "cell")
-    }
-    
-    private func configureButton() {
-        
+        tableView.tableHeaderView = trends
     }
     
     private func setConstraints() {
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant:  -20),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant:  0),
             mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         topView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             topView.topAnchor.constraint(equalTo: mainStackView.topAnchor),
-            topView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
-            topView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+            topView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant:  20),
+            topView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant:  -20),
             topView.heightAnchor.constraint(equalToConstant: 98),
         ])
         receipeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -203,8 +192,8 @@ class MainViewController: UIViewController {
         searchView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             searchView.topAnchor.constraint(equalTo: topView.bottomAnchor),
-            searchView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
-            searchView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+            searchView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 20),
+            searchView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -20),
             searchView.heightAnchor.constraint(equalToConstant: 60),
         ])
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -213,41 +202,41 @@ class MainViewController: UIViewController {
             searchTextField.leadingAnchor.constraint(equalTo: searchView.leadingAnchor),
             searchTextField.trailingAnchor.constraint(equalTo: searchView.trailingAnchor)
         ])
-        trendingScrollView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            trendingScrollView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
-            trendingScrollView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
-            trendingScrollView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
-        ])
-        trendingContentView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            trendingContentView.topAnchor.constraint(equalTo: trendingScrollView.topAnchor),
-            trendingContentView.leadingAnchor.constraint(equalTo: trendingScrollView.leadingAnchor),
-            trendingContentView.trailingAnchor.constraint(equalTo: trendingScrollView.trailingAnchor),
-            trendingContentView.bottomAnchor.constraint(equalTo: trendingScrollView.bottomAnchor)
-        ])
-        titleTrendLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            titleTrendLabel.leadingAnchor.constraint(equalTo: trendingContentView.leadingAnchor),
-            titleTrendLabel.topAnchor.constraint(equalTo: trendingContentView.topAnchor),
-            titleTrendLabel.widthAnchor.constraint(equalTo: trendingContentView.widthAnchor, multiplier: 0.75)
-        ])
-        trendStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            trendStackView.topAnchor.constraint(equalTo: trendingContentView.topAnchor),
-            trendStackView.leadingAnchor.constraint(equalTo: trendingContentView.leadingAnchor),
-            trendStackView.trailingAnchor.constraint(equalTo: trendingContentView.trailingAnchor),
-            trendStackView.bottomAnchor.constraint(equalTo: trendingContentView.bottomAnchor),
-        ])
-        trendImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            trendImageView.topAnchor.constraint(equalTo: titleTrendLabel.bottomAnchor, constant: 16),
-            trendImageView.widthAnchor.constraint(equalToConstant: 280),
-            trendImageView.heightAnchor.constraint(equalToConstant: 180),
-        ])
+//        trendingScrollView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            trendingScrollView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
+//            trendingScrollView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+//            trendingScrollView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
+//        ])
+//        trendingContentView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            trendingContentView.topAnchor.constraint(equalTo: trendingScrollView.topAnchor),
+//            trendingContentView.leadingAnchor.constraint(equalTo: trendingScrollView.leadingAnchor, constant: 20),
+//            trendingContentView.trailingAnchor.constraint(equalTo: trendingScrollView.trailingAnchor, constant: -20),
+//            trendingContentView.bottomAnchor.constraint(equalTo: trendingScrollView.bottomAnchor)
+//        ])
+//        titleTrendLabel.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            titleTrendLabel.leadingAnchor.constraint(equalTo: trendingContentView.leadingAnchor),
+//            titleTrendLabel.topAnchor.constraint(equalTo: trendingContentView.topAnchor),
+//            titleTrendLabel.widthAnchor.constraint(equalTo: trendingContentView.widthAnchor, multiplier: 0.75)
+//        ])
+//        trendStackView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            trendStackView.topAnchor.constraint(equalTo: trendingContentView.topAnchor),
+//            trendStackView.leadingAnchor.constraint(equalTo: trendingContentView.leadingAnchor),
+//            trendStackView.trailingAnchor.constraint(equalTo: trendingContentView.trailingAnchor),
+//            trendStackView.bottomAnchor.constraint(equalTo: trendingContentView.bottomAnchor),
+//        ])
+//        trendImageView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            trendImageView.topAnchor.constraint(equalTo: titleTrendLabel.bottomAnchor, constant: 16),
+//            trendImageView.widthAnchor.constraint(equalToConstant: 280),
+//            trendImageView.heightAnchor.constraint(equalToConstant: 180),
+//        ])
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: trendStackView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
@@ -257,21 +246,21 @@ class MainViewController: UIViewController {
 
 // MARK: - Delegate
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 104
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return self.viewForHeaderInSection
+        return viewForHeaderInSection
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 106
+        return 53
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
