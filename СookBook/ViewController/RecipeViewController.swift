@@ -5,13 +5,13 @@ struct Ingredients {
     var quantity: String
 }
 
-class RecipeViewController: UIViewController {
+final class RecipeViewController: UIViewController {
     // MARK: - constant
     private let headerHeight: CGFloat = 44
 
     // MARK: - property
-    private let makeLabel = UILabel()
-    private let recipeImageView = UIImageView()
+    let makeLabel = UILabel()
+    let recipeImageView = UIImageView()
     private var ingredientTableView = UITableView()
 
     var ingredients: [Ingredients] = [
@@ -51,7 +51,6 @@ class RecipeViewController: UIViewController {
 
     private func configureLabel() {
         makeLabel.translatesAutoresizingMaskIntoConstraints = false
-        makeLabel.text = "How to make french toast"
         makeLabel.textColor = .black
         makeLabel.font = UIFont.boldSystemFont(ofSize: 28)
         makeLabel.textAlignment = .left
@@ -61,7 +60,6 @@ class RecipeViewController: UIViewController {
     private func configureImageView() {
         recipeImageView.translatesAutoresizingMaskIntoConstraints = false
         recipeImageView.layer.masksToBounds = true
-        recipeImageView.image = UIImage(named: "recipeImage")
         recipeImageView.contentMode = .scaleAspectFill
         recipeImageView.layer.cornerRadius = 12
     }

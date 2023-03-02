@@ -107,7 +107,8 @@ final class StartViewController: UIViewController {
     }
 
     @objc private func startCookingButtonTapped() {
-        let favoritesVC = FavoritesViewController()
-        self.navigationController?.pushViewController(favoritesVC, animated: true)
+        let tabBarController = TabBar()
+        tabBarController.modalPresentationStyle = .fullScreen
+        present(tabBarController, animated: false, completion: nil)
     }
 }

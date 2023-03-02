@@ -103,6 +103,10 @@ extension FavoritesViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let сontroller = RecipeViewController()
+        сontroller.makeLabel.text = cellObjects[indexPath.row].title
+        сontroller.recipeImageView.image = UIImage(named: cellObjects[indexPath.row].imageName)
+        present(сontroller, animated: true, completion: nil)
         print("Cell at \(indexPath.row) row tapped!")
     }
 
