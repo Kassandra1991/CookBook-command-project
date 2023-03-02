@@ -15,22 +15,22 @@ final class  TabBar: UITabBarController{
         tabBar.tintColor = .label
         setupVCs()
     }
-    func setupVCs() {
+    private func setupVCs() {
             viewControllers = [
                 createNavController(for: MainViewController(), title: NSLocalizedString("Main", comment: ""), image: UIImage(systemName: "house")!),
                 createNavController(for: FavoriteViewController(), title: NSLocalizedString("Favorite", comment: ""), image: UIImage(systemName: "star")!)
             ]
         }
-
+    fileprivate func createNavController(for rootViewController: UIViewController,
+                                                     title: String,
+                                                     image: UIImage) -> UIViewController {
+           let navController = UINavigationController(rootViewController: rootViewController)
+           navController.tabBarItem.title = title
+           navController.tabBarItem.image = image
+           navController.navigationBar.prefersLargeTitles = true
+           navController.modalPresentationStyle = .overCurrentContext
+           rootViewController.navigationItem.title = title
+           return navController
+       }
 }
-fileprivate func createNavController(for rootViewController: UIViewController,
-                                                 title: String,
-                                                 image: UIImage) -> UIViewController {
-       let navController = UINavigationController(rootViewController: rootViewController)
-       navController.tabBarItem.title = title
-       navController.tabBarItem.image = image
-       navController.navigationBar.prefersLargeTitles = true
-       navController.modalPresentationStyle = .overCurrentContext
-       rootViewController.navigationItem.title = title
-       return navController
-   }
+
