@@ -16,6 +16,8 @@ class MainTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 20
+        stackView.backgroundColor = #colorLiteral(red: 0.9450981021, green: 0.9450981021, blue: 0.9450981021, alpha: 1)
+        stackView.layer.cornerRadius = 12
         return stackView
     }()
     
@@ -110,10 +112,10 @@ class MainTableViewCell: UITableViewCell {
     func setConstraints() {
         cellStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cellStackView.topAnchor.constraint(equalTo: topAnchor),
-            cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            cellStackView.topAnchor.constraint(equalTo: topAnchor, constant: 2),
+            cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2),
         ])
         icon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -121,7 +123,7 @@ class MainTableViewCell: UITableViewCell {
             icon.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 20),
             icon.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -20),
             icon.widthAnchor.constraint(equalToConstant: 64),
-            icon.heightAnchor.constraint(equalToConstant: 64)
+            //icon.heightAnchor.constraint(equalToConstant: 64)
         ])
         descriptionStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

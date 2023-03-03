@@ -93,18 +93,6 @@ class MainViewController: UIViewController {
         imageView.image = UIImage(named: "bookmark")
         return imageView
     }()
-
-//    private lazy var trendImageView2: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.image = UIImage(named: "video2")
-//        return imageView
-//    }()
-//
-//    private lazy var trendImageView3: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.image = UIImage(named: "video3")
-//        return imageView
-//    }()
     
     private let items: [Item] = [
     Item(id: 0, title: "Papper ramen", category: "Noodle", image: "ramen", bookmark: "bookmark", time: 10, isFavorite: false),
