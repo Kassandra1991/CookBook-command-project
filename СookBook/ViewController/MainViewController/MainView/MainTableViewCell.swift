@@ -67,11 +67,6 @@ class MainTableViewCell: UITableViewCell {
         descriptionStackView.addArrangedSubview(titleLabel)
         descriptionStackView.addArrangedSubview(timeLabel)
         cellStackView.addArrangedSubview(bookmarkImageView)
-//        viewForBookmark.backgroundColor = .blue
-//        cellStackView.backgroundColor = .brown
-//        descriptionStackView.backgroundColor = .red
-        
-        
     }
     
     //MARK: - flow funcs
@@ -85,7 +80,6 @@ class MainTableViewCell: UITableViewCell {
         configureTitle(with: title)
         configureTime(with: time)
         configureBookmark(with: bookmark)
-
     }
     
     func configureImage(with name: String) {
