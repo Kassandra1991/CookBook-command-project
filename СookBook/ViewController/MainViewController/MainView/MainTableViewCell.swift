@@ -16,6 +16,8 @@ class MainTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 20
+        stackView.backgroundColor = #colorLiteral(red: 0.9450981021, green: 0.9450981021, blue: 0.9450981021, alpha: 1)
+        stackView.layer.cornerRadius = 12
         return stackView
     }()
     
@@ -67,7 +69,6 @@ class MainTableViewCell: UITableViewCell {
         descriptionStackView.addArrangedSubview(titleLabel)
         descriptionStackView.addArrangedSubview(timeLabel)
         cellStackView.addArrangedSubview(bookmarkImageView)
-        
     }
     
     //MARK: - flow funcs
@@ -81,7 +82,6 @@ class MainTableViewCell: UITableViewCell {
         configureTitle(with: title)
         configureTime(with: time)
         configureBookmark(with: bookmark)
-
     }
     
     func configureImage(with name: String) {
@@ -112,34 +112,35 @@ class MainTableViewCell: UITableViewCell {
     func setConstraints() {
         cellStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cellStackView.topAnchor.constraint(equalTo: topAnchor),
-            cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            cellStackView.topAnchor.constraint(equalTo: topAnchor, constant: 2),
+            cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2),
         ])
         icon.translatesAutoresizingMaskIntoConstraints = false
-        descriptionStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            descriptionStackView.widthAnchor.constraint(equalToConstant: 175),
-            descriptionStackView.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 29),
-            descriptionStackView.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -29),
-            
-            ])
         NSLayoutConstraint.activate([
             icon.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor, constant: 20),
             icon.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 20),
             icon.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -20),
             icon.widthAnchor.constraint(equalToConstant: 64),
-            icon.heightAnchor.constraint(equalToConstant: 64)
+            //icon.heightAnchor.constraint(equalToConstant: 64)
         ])
+        descriptionStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            descriptionStackView.widthAnchor.constraint(equalToConstant: 153),
+            descriptionStackView.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 29),
+            descriptionStackView.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -29),
+            
+            ])
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         bookmarkImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            bookmarkImageView.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 37),
             bookmarkImageView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor, constant: -20),
-//            bookmarkImageView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
-//            bookmarkImageView.widthAnchor.constraint(equalToConstant: 24),
-//            bookmarkImageView.heightAnchor.constraint(equalToConstant: 24),
+            bookmarkImageView.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -37),
+            bookmarkImageView.widthAnchor.constraint(equalToConstant: 24),
+            bookmarkImageView.heightAnchor.constraint(equalToConstant: 24),
         ])
     }
 }
