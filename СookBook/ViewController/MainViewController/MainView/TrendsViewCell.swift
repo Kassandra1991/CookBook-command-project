@@ -31,6 +31,8 @@ final class TrendsViewCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         imageView.image = UIImage(named: name)
+        
+        setConstraint()
     }
 
     func setConstraint() {
