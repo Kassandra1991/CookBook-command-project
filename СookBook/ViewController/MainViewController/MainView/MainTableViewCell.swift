@@ -42,6 +42,11 @@ class MainTableViewCell: UITableViewCell {
         return label
     }()
     
+    private lazy var viewForBookmark: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     private lazy var bookmarkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -66,7 +71,8 @@ class MainTableViewCell: UITableViewCell {
         cellStackView.addArrangedSubview(descriptionStackView)
         descriptionStackView.addArrangedSubview(titleLabel)
         descriptionStackView.addArrangedSubview(timeLabel)
-        cellStackView.addArrangedSubview(bookmarkImageView)
+        cellStackView.addArrangedSubview(viewForBookmark)
+        viewForBookmark.addSubview(bookmarkImageView)
         
     }
     
@@ -134,12 +140,20 @@ class MainTableViewCell: UITableViewCell {
         ])
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        viewForBookmark.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            viewForBookmark.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor, constant: -20),
+            viewForBookmark.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
+            viewForBookmark.widthAnchor.constraint(equalToConstant: 24),
+            viewForBookmark.heightAnchor.constraint(equalToConstant: 24),
+        ])
         bookmarkImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            bookmarkImageView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor, constant: -20),
-//            bookmarkImageView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
-//            bookmarkImageView.widthAnchor.constraint(equalToConstant: 24),
-//            bookmarkImageView.heightAnchor.constraint(equalToConstant: 24),
+            bookmarkImageView.topAnchor.constraint(equalTo: viewForBookmark.topAnchor),
+            bookmarkImageView.leadingAnchor.constraint(equalTo: viewForBookmark.leadingAnchor),
+            bookmarkImageView.bottomAnchor.constraint(equalTo: viewForBookmark.bottomAnchor),
+            bookmarkImageView.trailingAnchor.constraint(equalTo: viewForBookmark.trailingAnchor),
         ])
+        
     }
 }
