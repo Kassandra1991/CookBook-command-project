@@ -10,7 +10,6 @@ import UIKit
 final class FavoritesViewController: UIViewController {
 
     // MARK: - properties
-    private let titleLabel = UILabel()
     private let tableView = UITableView()
     private var cellObjects = [FavoriteRecipe]()
 
@@ -25,13 +24,11 @@ final class FavoritesViewController: UIViewController {
     // MARK: - flow funcs
     private func configure() {
         configureViews()
-        configureLabels()
         configureTableView()
         configureCellObjects()
     }
 
     private func addSubViews() {
-        view.addSubview(titleLabel)
         view.addSubview(tableView)
     }
 
@@ -49,21 +46,9 @@ final class FavoritesViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
     }
 
-    private func configureLabels() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Favorite recipes"
-        titleLabel.textAlignment = .natural
-        titleLabel.font = .systemFont(ofSize: 24, weight: .bold)
-        titleLabel.textColor = .black
-    }
-
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-
-            tableView.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 2),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
