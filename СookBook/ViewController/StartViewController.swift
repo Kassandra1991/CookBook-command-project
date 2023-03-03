@@ -9,7 +9,7 @@ import UIKit
 
 final class StartViewController: UIViewController {
 
-    // MARK: - property
+    // MARK: - properties
     private let backgroundImage = UIImageView()
     private let mainLabel = UILabel()
     private let subheadingLabel = UILabel()
@@ -37,9 +37,10 @@ final class StartViewController: UIViewController {
 
     // MARK: - flow funcs
     private func configure() {
-        configureView()
-        configureLabel()
-        configureButton()
+        configureNavigationBar()
+        configureViews()
+        configureLabels()
+        configureButtons()
     }
 
     private func addSubViews() {
@@ -48,9 +49,13 @@ final class StartViewController: UIViewController {
         view.addSubview(stackView)
     }
 
-    private func configureView() {
+    func configureNavigationBar() {
+        self.navigationController?.navigationBar.tintColor = .systemPink
+   }
+
+    private func configureViews() {
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImage.image = UIImage(named: "background_launchscreen")
+        backgroundImage.image = UIImage(named: "background-launchscreen")
         backgroundImage.contentMode = .scaleAspectFill
 
         darkOverlay.translatesAutoresizingMaskIntoConstraints = false
@@ -58,22 +63,22 @@ final class StartViewController: UIViewController {
         darkOverlay.alpha = 0.18
     }
 
-    private func configureLabel() {
+    private func configureLabels() {
         mainLabel.numberOfLines = 0
         mainLabel.text = "Let's Cooking"
         mainLabel.textAlignment = .center
-        mainLabel.font = .systemFont(ofSize: 60, weight: .heavy)
+        mainLabel.font = .systemFont(ofSize: 56, weight: .heavy)
         mainLabel.textColor = .white
 
         subheadingLabel.text = "Find best recipes for cooking"
-        subheadingLabel.font = .preferredFont(forTextStyle: .body)
+        subheadingLabel.font = .systemFont(ofSize: 16, weight: .medium)
         subheadingLabel.textColor = .white
     }
 
-    private func configureButton() {
+    private func configureButtons() {
         startButton.setTitle("Start cooking", for: .normal)
         startButton.setTitleColor(.white, for: .normal)
-        startButton.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+        startButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         startButton.backgroundColor = .systemPink
         startButton.layer.cornerRadius = 10
         startButton.addTarget(self, action: #selector(startCookingButtonTapped), for: .touchUpInside)
@@ -102,7 +107,8 @@ final class StartViewController: UIViewController {
     }
 
     @objc private func startCookingButtonTapped() {
-        let secondVC = ViewController()
-        self.navigationController?.pushViewController(secondVC, animated: true)
+        let tabBarController = TabBar()
+        tabBarController.modalPresentationStyle = .fullScreen
+        present(tabBarController, animated: false, completion: nil)
     }
 }
