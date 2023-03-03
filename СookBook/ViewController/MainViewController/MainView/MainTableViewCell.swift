@@ -72,6 +72,9 @@ class MainTableViewCell: UITableViewCell {
         descriptionStackView.addArrangedSubview(titleLabel)
         descriptionStackView.addArrangedSubview(timeLabel)
         cellStackView.addArrangedSubview(viewForBookmark)
+//        viewForBookmark.backgroundColor = .blue
+//        cellStackView.backgroundColor = .brown
+//        descriptionStackView.backgroundColor = .red
         viewForBookmark.addSubview(bookmarkImageView)
         
     }
@@ -120,17 +123,10 @@ class MainTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             cellStackView.topAnchor.constraint(equalTo: topAnchor),
             cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         icon.translatesAutoresizingMaskIntoConstraints = false
-        descriptionStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            descriptionStackView.widthAnchor.constraint(equalToConstant: 175),
-            descriptionStackView.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 29),
-            descriptionStackView.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -29),
-            
-            ])
         NSLayoutConstraint.activate([
             icon.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor, constant: 20),
             icon.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 20),
@@ -138,12 +134,20 @@ class MainTableViewCell: UITableViewCell {
             icon.widthAnchor.constraint(equalToConstant: 64),
             icon.heightAnchor.constraint(equalToConstant: 64)
         ])
+        descriptionStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            descriptionStackView.widthAnchor.constraint(equalToConstant: 153),
+            descriptionStackView.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 29),
+            descriptionStackView.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -29),
+            
+            ])
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         viewForBookmark.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            viewForBookmark.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 37),
             viewForBookmark.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor, constant: -20),
-            viewForBookmark.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
+            viewForBookmark.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -37),
             viewForBookmark.widthAnchor.constraint(equalToConstant: 24),
             viewForBookmark.heightAnchor.constraint(equalToConstant: 24),
         ])
@@ -154,6 +158,5 @@ class MainTableViewCell: UITableViewCell {
             bookmarkImageView.bottomAnchor.constraint(equalTo: viewForBookmark.bottomAnchor),
             bookmarkImageView.trailingAnchor.constraint(equalTo: viewForBookmark.trailingAnchor),
         ])
-        
     }
 }
