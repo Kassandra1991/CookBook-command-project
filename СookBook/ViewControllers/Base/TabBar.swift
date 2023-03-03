@@ -7,18 +7,16 @@
 
 import UIKit
 
-final class  TabBar: UITabBarController{
+final class TabBar: UITabBarController{
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
-        UITabBar.appearance().barTintColor = .blue
-        tabBar.tintColor = .label
+        tabBar.tintColor = .systemPink
         setupVCs()
     }
     private func setupVCs() {
             viewControllers = [
                 createNavController(for: MainViewController(), title: NSLocalizedString("Main", comment: ""), image: UIImage(systemName: "house")!),
-                createNavController(for: FavoritesViewController(), title: NSLocalizedString("Favorite", comment: ""), image: UIImage(systemName: "star")!)
+                createNavController(for: FavoritesViewController(), title: NSLocalizedString("Favorite recipes", comment: ""), image: UIImage(systemName: "star")!)
             ]
         }
     fileprivate func createNavController(for rootViewController: UIViewController,
