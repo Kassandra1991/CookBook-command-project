@@ -5,6 +5,11 @@ struct Ingredients {
     var quantity: String
 }
 
+enum Section: Int, CaseIterable {
+    case ingredients
+    case instruction
+}
+
 final class RecipeViewController: UIViewController {
     // MARK: - constant
     private let headerHeight: CGFloat = 44
@@ -25,6 +30,9 @@ final class RecipeViewController: UIViewController {
         Ingredients(ingredientName: "Lemon juice", quantity: "0,5ps"),
         Ingredients(ingredientName: "Sugar powder", quantity: "2sp"),
     ]
+
+    var instruction = "1. Положите весь творог в кастрюльку и разомните его вилкой так, чтобы в нем не осталось крупных комков. Разбейте в него яйца, всыпьте сахар и тщательно все перемешайте. Лучше не использовать слишком сухой или слишком влажный творог, иначе сырники будут разваливаться в процессе приготовления. 2. Всыпьте в творог 5 столовых ложек (с горкой) муки и тщательно перемешайте. Можно добавить немного больше муки, сырники получатся тогда более плотными. Или муки можно добавить чуть меньше, и тогда сырники будут нежнее. В итоге у вас должна получиться однородная масса, из которой можно будет лепить сырники."
+
     // MARK: - life cycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,12 +77,15 @@ final class RecipeViewController: UIViewController {
         navigationItem.leftBarButtonItem = backButtonItem
     }
 
+
+
     private func configureTableView() {
         ingredientTableView.translatesAutoresizingMaskIntoConstraints = false
         ingredientTableView.delegate = self
         ingredientTableView.dataSource = self
         ingredientTableView.separatorStyle = .none
         ingredientTableView.register(UINib(nibName: "IngredientTableViewCell", bundle: nil), forCellReuseIdentifier: "IngredientTableViewCell")
+        ingredientTableView.register(UINib(nibName: "InstructionTableViewCell", bundle: nil), forCellReuseIdentifier: "InstructionTableViewCell")
         ingredientTableView.register(UINib(nibName: "IngredientHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "IngredientHeaderView")
         ingredientTableView.allowsMultipleSelection = true
     }
@@ -104,21 +115,51 @@ final class RecipeViewController: UIViewController {
 
 // MARK: - extension Delegate
 extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        Section.allCases.count
+    }
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        ingredients.count
+        switch Section(rawValue: section) {
+        case .ingredients:
+            return ingredients.count
+        case .instruction:
+            return 1
+        default:
+            fatalError()
+        }
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientTableViewCell", for: indexPath) as! IngredientTableViewCell
-        let item = ingredients[indexPath.row]
-        cell.ingredientLabel.text = item.ingredientName
-        cell.quantityLabel.text = item.quantity
-        return cell
+        switch Section(rawValue: indexPath.section) {
+        case .ingredients:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientTableViewCell", for: indexPath) as! IngredientTableViewCell
+            let item = ingredients[indexPath.row]
+            cell.ingredientLabel.text = item.ingredientName
+            cell.quantityLabel.text = item.quantity
+            return cell
+        case .instruction:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "InstructionTableViewCell", for: indexPath) as! InstructionTableViewCell
+            cell.instructionLabel.text = instruction
+            return cell
+        default:
+            fatalError()
+        }
+
     }
 
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "IngredientHeaderView") as! IngredientHeaderView
-        return header
+        switch Section(rawValue: section) {
+        case .ingredients:
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "IngredientHeaderView") as! IngredientHeaderView
+            return header
+        case .instruction:
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "IngredientHeaderView") as! IngredientHeaderView
+            header.ingredientsHeaderLabel.text = "Instruction"
+            header.countOfIngredientsLabel.text = ""
+            return header
+        default:
+            fatalError()
+        }
     }
 
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
