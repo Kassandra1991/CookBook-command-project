@@ -7,11 +7,5 @@ class IngredientHeaderView: UITableViewHeaderFooterView {
     // MARK: - life cycle funcs
     override func awakeFromNib() {
         super.awakeFromNib()
-        configureLabel()
-    }
-    // MARK: - flow funcs
-    func configureLabel() {
-        ingredientsHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
-        countOfIngredientsLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 }
