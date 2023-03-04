@@ -67,19 +67,19 @@ final class StartViewController: UIViewController {
         mainLabel.numberOfLines = 0
         mainLabel.text = "Let's Cooking"
         mainLabel.textAlignment = .center
-        mainLabel.font = .systemFont(ofSize: 56, weight: .heavy)
+        mainLabel.font = .poppinsBold56()
         mainLabel.textColor = .white
 
         subheadingLabel.text = "Find best recipes for cooking"
-        subheadingLabel.font = .systemFont(ofSize: 16, weight: .medium)
+        subheadingLabel.font = .poppinsRegular16()
         subheadingLabel.textColor = .white
     }
 
     private func configureButtons() {
         startButton.setTitle("Start cooking", for: .normal)
         startButton.setTitleColor(.white, for: .normal)
-        startButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
-        startButton.backgroundColor = .systemPink
+        startButton.titleLabel?.font = .poppinsBold16()
+        startButton.backgroundColor = .specialRed
         startButton.layer.cornerRadius = 10
         startButton.addTarget(self, action: #selector(startCookingButtonTapped), for: .touchUpInside)
     }
@@ -109,6 +109,6 @@ final class StartViewController: UIViewController {
     @objc private func startCookingButtonTapped() {
         let tabBarController = TabBar()
         tabBarController.modalPresentationStyle = .fullScreen
-        present(tabBarController, animated: false, completion: nil)
+        present(tabBarController, animated: true, completion: nil)
     }
 }
