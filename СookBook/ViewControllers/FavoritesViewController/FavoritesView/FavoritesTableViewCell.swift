@@ -42,7 +42,7 @@ final class FavoritesTableViewCell: UITableViewCell {
     }
 
     private func configureViews() {
-        contentView.backgroundColor = .systemGroupedBackground
+        contentView.backgroundColor = .white
 
         recipeImage.translatesAutoresizingMaskIntoConstraints = false
         recipeImage.image = UIImage(named: "recipe-1")
@@ -56,7 +56,7 @@ final class FavoritesTableViewCell: UITableViewCell {
         recipeLabel.text = "How to make french toast"
         recipeLabel.textAlignment = .natural
         recipeLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        recipeLabel.textColor = .black
+        recipeLabel.textColor = .specialBlack
     }
 
     private func setConstraints() {
