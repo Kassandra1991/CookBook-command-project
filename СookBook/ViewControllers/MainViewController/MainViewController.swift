@@ -130,6 +130,7 @@ class MainViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableHeaderView = titleTrendLabel
+        tableView.separatorColor = .clear
     }
     
     private func setConstraints() {
@@ -191,6 +192,15 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MainTableViewCell
         cell.configure(with: items[indexPath.row])
+        cell.selectionStyle = .none
         return  cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let сontroller = RecipeViewController()
+        сontroller.makeLabel.text = items[indexPath.row].title
+        сontroller.recipeImageView.image = UIImage(named: items[indexPath.row].image ?? "ramen")
+        present(сontroller, animated: true, completion: nil)
+        print("Cell at \(indexPath.row) row tapped!")
     }
 }

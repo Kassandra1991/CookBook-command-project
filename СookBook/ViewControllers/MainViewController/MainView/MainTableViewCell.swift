@@ -13,7 +13,7 @@ class MainTableViewCell: UITableViewCell {
     enum Constants {
         static let descriptionImageViewSideSpacing: CGFloat = 29.0
         static let bookmarkImageViewSideSpacing: CGFloat = 37.0
-        static let cellStackViewSideSpacing: CGFloat = 2.0
+        static let cellStackViewSideSpacing: CGFloat = 4.0
         static let iconViewSideSpacing: CGFloat = 20.0
         static let descriptionStackViewWidth: CGFloat = 153.0
         static let numberOfLines: Int = 2
