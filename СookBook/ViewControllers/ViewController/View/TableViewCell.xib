@@ -26,31 +26,30 @@
                     </imageView>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHY-Yu-4cr">
                         <rect key="frame" x="20" y="6" width="280" height="88"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGe-Tg-F4w">
-                                <rect key="frame" x="16" y="33.666666666666664" width="248" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="88" id="E0h-sr-gdW"/>
-                            <constraint firstAttribute="trailing" secondItem="XGe-Tg-F4w" secondAttribute="trailing" constant="16" id="aPK-NI-Oed"/>
-                            <constraint firstItem="XGe-Tg-F4w" firstAttribute="centerY" secondItem="AHY-Yu-4cr" secondAttribute="centerY" id="gih-L3-QuI"/>
-                            <constraint firstItem="XGe-Tg-F4w" firstAttribute="leading" secondItem="AHY-Yu-4cr" secondAttribute="leading" constant="16" id="oS0-8h-Jhl"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGe-Tg-F4w">
+                        <rect key="frame" x="36" y="14" width="248" height="72"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="XGe-Tg-F4w" firstAttribute="top" secondItem="Txf-tl-Bva" secondAttribute="top" constant="8" id="0ly-D0-Ucm"/>
                     <constraint firstAttribute="bottom" secondItem="Txf-tl-Bva" secondAttribute="bottom" constant="6" id="Bqp-pa-ngB"/>
                     <constraint firstItem="AHY-Yu-4cr" firstAttribute="top" secondItem="Txf-tl-Bva" secondAttribute="top" id="Jao-84-DKQ"/>
                     <constraint firstItem="Txf-tl-Bva" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="MHT-1l-SD2"/>
                     <constraint firstItem="Txf-tl-Bva" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="WJX-jW-iyf"/>
+                    <constraint firstItem="XGe-Tg-F4w" firstAttribute="leading" secondItem="AHY-Yu-4cr" secondAttribute="leading" constant="16" id="aCL-pj-uAD"/>
                     <constraint firstAttribute="trailing" secondItem="Txf-tl-Bva" secondAttribute="trailing" constant="20" id="bY1-EE-DfB"/>
                     <constraint firstItem="AHY-Yu-4cr" firstAttribute="bottom" secondItem="Txf-tl-Bva" secondAttribute="bottom" id="bnn-WY-mDG"/>
                     <constraint firstItem="AHY-Yu-4cr" firstAttribute="leading" secondItem="Txf-tl-Bva" secondAttribute="leading" id="m5A-nG-eXb"/>
+                    <constraint firstItem="Txf-tl-Bva" firstAttribute="bottom" secondItem="XGe-Tg-F4w" secondAttribute="bottom" constant="8" id="vpl-cN-OGo"/>
+                    <constraint firstItem="AHY-Yu-4cr" firstAttribute="trailing" secondItem="XGe-Tg-F4w" secondAttribute="trailing" constant="16" id="yYE-gp-g4Q"/>
                     <constraint firstItem="AHY-Yu-4cr" firstAttribute="trailing" secondItem="Txf-tl-Bva" secondAttribute="trailing" id="zD3-rp-wqm"/>
                 </constraints>
             </tableViewCellContentView>

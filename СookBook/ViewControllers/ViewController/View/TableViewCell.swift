@@ -1,7 +1,9 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
-
+    // MARK: - constant
+    private let shadowAlpha = 0.36
+    
     // MARK: - property
     @IBOutlet weak var categoryImageView: UIImageView!
     @IBOutlet weak var shadowView: UIView!
@@ -21,13 +23,13 @@ class TableViewCell: UITableViewCell {
     }
 
     private func configureImageView() {
-        categoryImageView.rounded(radius: 12)
+        categoryImageView.rounded()
     }
 
     private func configureView() {
-        shadowView.rounded(radius: 12)
+        shadowView.rounded()
         shadowView.backgroundColor = .specialBlack
-        shadowView.alpha = 0.36
+        shadowView.alpha = shadowAlpha
     }
 
     private func configureLabel() {
