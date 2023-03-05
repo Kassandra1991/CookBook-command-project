@@ -20,6 +20,8 @@ class MainViewController: UIViewController {
         static let searchViewHeight: CGFloat = 60.0
         static let topViewViewSideSpacing: CGFloat = 20.0
         static let topViewViewHeight: CGFloat = 98.0
+        static let trendViewSideSpacing: CGFloat = 20.0
+        static let trendViewHeight: CGFloat = 28.0
         static let numberOfLines: Int = 2
         static let widthSearchImageView: CGFloat = 20.0
         static let heightSearchImageView: CGFloat = 20.0
@@ -43,6 +45,11 @@ class MainViewController: UIViewController {
     }()
     
     private lazy var searchView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    private lazy var trendView: UIView = {
         let view = UIView()
         return view
     }()
@@ -89,7 +96,9 @@ class MainViewController: UIViewController {
     private let items: [Item] = [
     Item(id: 0, title: "Papper ramen", category: "Noodle", image: "ramen", bookmark: "bookmark", time: 10, isFavorite: false),
     Item(id: 1, title: "Sweet souse noodle", category: "Lunch", image: "ramen2", bookmark: "bookmark", time: 15, isFavorite: false),
-    Item(id: 2, title: "Chicken soup", category: "Noodle", image: "ramen3", bookmark: "bookmark", time: 19, isFavorite: false)
+    Item(id: 2, title: "Chicken soup", category: "Noodle", image: "ramen3", bookmark: "bookmark", time: 19, isFavorite: false),
+    Item(id: 3, title: "Sweet cqke with jam", category: "Desert", image: "ramen2", bookmark: "bookmark", time: 35, isFavorite: false),
+    Item(id: 4, title: "Sweet soupe", category: "Lunch", image: "ramen2", bookmark: "bookmark", time: 25, isFavorite: false),
     ]
     
     private lazy var tableView = UITableView()
@@ -118,6 +127,8 @@ class MainViewController: UIViewController {
         topView.addSubview(receipeLabel)
         mainStackView.addArrangedSubview(searchView)
         searchView.addSubview(searchTextField)
+        mainStackView.addArrangedSubview(trendView)
+        trendView.addSubview(titleTrendLabel)
         mainStackView.addArrangedSubview(tableView)
     }
     
@@ -129,7 +140,6 @@ class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.tableHeaderView = titleTrendLabel
         tableView.separatorColor = .clear
     }
     
@@ -164,16 +174,29 @@ class MainViewController: UIViewController {
         ])
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            searchTextField.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 8),
+            searchTextField.topAnchor.constraint(equalTo: searchView.topAnchor),
             searchTextField.leadingAnchor.constraint(equalTo: searchView.leadingAnchor),
             searchTextField.trailingAnchor.constraint(equalTo: searchView.trailingAnchor)
         ])
+        trendView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            trendView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
+            trendView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: Constants.trendViewSideSpacing),
+            trendView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -Constants.trendViewSideSpacing),
+            trendView.heightAnchor.constraint(equalToConstant: Constants.trendViewHeight),
+        ])
+        titleTrendLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleTrendLabel.topAnchor.constraint(equalTo: trendView.topAnchor),
+            titleTrendLabel.leadingAnchor.constraint(equalTo: trendView.leadingAnchor),
+            titleTrendLabel.trailingAnchor.constraint(equalTo: trendView.trailingAnchor)
+        ])
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: trendView.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: Constants.tableViewSideSpacing),
-            tableView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -Constants.tableViewSideSpacing)
+            tableView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
         ])
     }
 }
