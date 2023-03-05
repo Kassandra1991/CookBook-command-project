@@ -9,8 +9,8 @@ import UIKit
 
 // MARK: - extension UIColor
 extension UIColor {
-    static let specialRed = UIColor(red: 209/255, green: 76/255, blue: 69/255, alpha: 1)
-    static let specialPink = UIColor(red: 224/255, green: 144/255, blue: 141/255, alpha: 1)
-    static let specialGray = UIColor(red: 241/255, green: 241/255, blue: 241/255, alpha: 1)
-    static let specialDarkGray = UIColor(red: 193/255, green: 193/255, blue: 193/255, alpha: 1)
+    static let specialRed = UIColor(red: 226/255, green: 62/255, blue: 62/255, alpha: 1)
+    static let specialPink = UIColor(red: 238/255, green: 139/255, blue: 139/255, alpha: 1)
+    static let specialBlack = UIColor(red: 24/255, green: 24/255, blue: 24/255, alpha: 1)
+    static let specialLightGray = UIColor(red: 169/255, green: 169/255, blue: 169/255, alpha: 1)
 }

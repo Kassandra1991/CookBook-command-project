@@ -33,7 +33,7 @@ final class FavoritesViewController: UIViewController {
     }
 
     private func configureViews() {
-        view.backgroundColor = .systemGroupedBackground
+        view.backgroundColor = .white
     }
 
     private func configureTableView() {
@@ -41,7 +41,7 @@ final class FavoritesViewController: UIViewController {
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(FavoritesTableViewCell.self, forCellReuseIdentifier: FavoritesTableViewCell.identifier)
-        tableView.backgroundColor = .systemGroupedBackground
+        tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
     }
