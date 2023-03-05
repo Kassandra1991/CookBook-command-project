@@ -18,8 +18,7 @@ final class RecipeViewController: UIViewController {
     let makeLabel = UILabel()
     let recipeImageView = UIImageView()
     private var ingredientTableView = UITableView()
-
-    var ingredients: [Ingredients] = [
+    private var ingredients: [Ingredients] = [
         Ingredients(ingredientName: "Apples", quantity: "4-5qty"),
         Ingredients(ingredientName: "Flower", quantity: "150g"),
         Ingredients(ingredientName: "Eggs", quantity: "4qty"),
@@ -30,16 +29,13 @@ final class RecipeViewController: UIViewController {
         Ingredients(ingredientName: "Lemon juice", quantity: "0,5ps"),
         Ingredients(ingredientName: "Sugar powder", quantity: "2sp"),
     ]
-
-    var instruction = "1. Положите весь творог в кастрюльку и разомните его вилкой так, чтобы в нем не осталось крупных комков. Разбейте в него яйца, всыпьте сахар и тщательно все перемешайте. Лучше не использовать слишком сухой или слишком влажный творог, иначе сырники будут разваливаться в процессе приготовления. 2. Всыпьте в творог 5 столовых ложек (с горкой) муки и тщательно перемешайте. Можно добавить немного больше муки, сырники получатся тогда более плотными. Или муки можно добавить чуть меньше, и тогда сырники будут нежнее. В итоге у вас должна получиться однородная масса, из которой можно будет лепить сырники."
+    private var instruction = "1. Положите весь творог в кастрюльку и разомните его вилкой так, чтобы в нем не осталось крупных комков. Разбейте в него яйца, всыпьте сахар и тщательно все перемешайте. Лучше не использовать слишком сухой или слишком влажный творог, иначе сырники будут разваливаться в процессе приготовления. 2. Всыпьте в творог 5 столовых ложек (с горкой) муки и тщательно перемешайте. Можно добавить немного больше муки, сырники получатся тогда более плотными. Или муки можно добавить чуть меньше, и тогда сырники будут нежнее. В итоге у вас должна получиться однородная масса, из которой можно будет лепить сырники."
 
     // MARK: - life cycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         addSubViews()
         configure()
-        setConstraints()
     }
 
     // MARK: - flow funcs
@@ -50,6 +46,7 @@ final class RecipeViewController: UIViewController {
     }
 
     private func configure() {
+        configureView()
         configureLabel()
         configureImageView()
         configureTableView()
@@ -57,27 +54,26 @@ final class RecipeViewController: UIViewController {
         setConstraints()
     }
 
+    private func configureView() {
+        view.backgroundColor = .white
+    }
+
     private func configureLabel() {
         makeLabel.translatesAutoresizingMaskIntoConstraints = false
-        makeLabel.textColor = .black
-        makeLabel.font = UIFont.boldSystemFont(ofSize: 28)
+        makeLabel.textColor = .specialBlack
+        makeLabel.text = "How to make french toast"
+        makeLabel.font = .poppinsBold24()
         makeLabel.textAlignment = .left
         makeLabel.numberOfLines = 0
     }
 
     private func configureImageView() {
         recipeImageView.translatesAutoresizingMaskIntoConstraints = false
+        recipeImageView.image = UIImage(named: "recipe-1")
         recipeImageView.layer.masksToBounds = true
         recipeImageView.contentMode = .scaleAspectFill
-        recipeImageView.layer.cornerRadius = 12
+        recipeImageView.rounded()
     }
-
-    private func configureNavigationBar() {
-        let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: RecipeViewController.self, action: #selector(backButtonAction))
-        navigationItem.leftBarButtonItem = backButtonItem
-    }
-
-
 
     private func configureTableView() {
         ingredientTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +84,11 @@ final class RecipeViewController: UIViewController {
         ingredientTableView.register(UINib(nibName: "InstructionTableViewCell", bundle: nil), forCellReuseIdentifier: "InstructionTableViewCell")
         ingredientTableView.register(UINib(nibName: "IngredientHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "IngredientHeaderView")
         ingredientTableView.allowsMultipleSelection = true
+    }
+    
+    private func configureNavigationBar() {
+        let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: RecipeViewController.self, action: #selector(backButtonAction))
+        navigationItem.leftBarButtonItem = backButtonItem
     }
 
     private func setConstraints() {
@@ -115,9 +116,10 @@ final class RecipeViewController: UIViewController {
 
 // MARK: - extension Delegate
 extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         Section.allCases.count
     }
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch Section(rawValue: section) {
         case .ingredients:
@@ -133,18 +135,19 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
         switch Section(rawValue: indexPath.section) {
         case .ingredients:
             let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientTableViewCell", for: indexPath) as! IngredientTableViewCell
+            cell.selectionStyle = .none
             let item = ingredients[indexPath.row]
             cell.ingredientLabel.text = item.ingredientName
             cell.quantityLabel.text = item.quantity
             return cell
         case .instruction:
             let cell = tableView.dequeueReusableCell(withIdentifier: "InstructionTableViewCell", for: indexPath) as! InstructionTableViewCell
+            cell.selectionStyle = .none
             cell.instructionLabel.text = instruction
             return cell
         default:
             fatalError()
         }
-
     }
 
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
