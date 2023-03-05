@@ -11,5 +11,6 @@ class HeaderView: UITableViewHeaderFooterView {
     // MARK: - flow funcs
     func configureLabel() {
         headerLabel.text = "Category"
+        headerLabel.font = .poppinsBold24()
     }
 }

@@ -5,11 +5,23 @@ class ViewController: UIViewController {
     // MARK: - property
     private let tableView = UITableView()
 
+    private var categories = [
+        "Breakfast",
+        "Deserts",
+        "Soups",
+        "Starters",
+        "Appetizers",
+        "Salads",
+        "Fish",
+        "Lamb",
+        "Vegetarian",
+        "Bakery"
+    ]
+
     // MARK: - life cycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubViews()
-        configure()
         configure()
     }
 
@@ -44,10 +56,12 @@ class ViewController: UIViewController {
 // MARK: - extension Delegate
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return categories.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
+        let item = categories[indexPath.row]
+        cell.categoryNameLabel.text = item
         return cell
     }
 
