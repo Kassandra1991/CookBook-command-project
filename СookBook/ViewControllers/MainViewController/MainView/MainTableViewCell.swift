@@ -9,15 +9,30 @@ import UIKit
 
 class MainTableViewCell: UITableViewCell {
 
+    // MARK: - constants
+    enum Constants {
+        static let descriptionImageViewSideSpacing: CGFloat = 29.0
+        static let bookmarkImageViewSideSpacing: CGFloat = 37.0
+        static let cellStackViewSideSpacing: CGFloat = 2.0
+        static let iconViewSideSpacing: CGFloat = 20.0
+        static let descriptionStackViewWidth: CGFloat = 153.0
+        static let numberOfLines: Int = 2
+        static let widthIconImageView: CGFloat = 64.0
+        static let bookmarkImageViewWidth: CGFloat = 24.0
+        static let bookmarkImageViewHeight: CGFloat = 24.0
+        static let descriptionStackViewSpacing: CGFloat = 8
+        static let cellStackViewSpacing: CGFloat = 20
+    }
+    
     //MARK: - property
     
     private lazy var cellStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
-        stackView.spacing = 20
+        stackView.spacing = Constants.cellStackViewSpacing
         stackView.backgroundColor = #colorLiteral(red: 0.9450981021, green: 0.9450981021, blue: 0.9450981021, alpha: 1)
-        stackView.layer.cornerRadius = 12
+        stackView.rounded()
         return stackView
     }()
     
@@ -30,7 +45,7 @@ class MainTableViewCell: UITableViewCell {
     private lazy var descriptionStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = Constants.descriptionStackViewSpacing
         return stackView
     }()
     
@@ -91,15 +106,15 @@ class MainTableViewCell: UITableViewCell {
     }
 
     func configureTitle(with text: String) {
-        titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        titleLabel.numberOfLines = 2
+        titleLabel.font = .poppinsBold14()
+        titleLabel.numberOfLines = Constants.numberOfLines
         titleLabel.text = text
     }
 
     func configureTime(with time: Int) {
         timeLabel.text = "\(time) Mins"
-        timeLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        timeLabel.textColor = .lightGray
+        timeLabel.font = .poppinsRegular12()
+        timeLabel.textColor = .specialLightGray
         timeLabel.contentMode = .left
     }
     
@@ -112,35 +127,34 @@ class MainTableViewCell: UITableViewCell {
     func setConstraints() {
         cellStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cellStackView.topAnchor.constraint(equalTo: topAnchor, constant: 2),
-            cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2),
+            cellStackView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.cellStackViewSideSpacing),
+            cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.cellStackViewSideSpacing),
         ])
         icon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            icon.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor, constant: 20),
-            icon.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 20),
-            icon.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -20),
-            icon.widthAnchor.constraint(equalToConstant: 64),
-            //icon.heightAnchor.constraint(equalToConstant: 64)
+            icon.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor, constant: Constants.iconViewSideSpacing),
+            icon.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: Constants.iconViewSideSpacing),
+            icon.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -Constants.iconViewSideSpacing),
+            icon.widthAnchor.constraint(equalToConstant: Constants.widthIconImageView),
         ])
         descriptionStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            descriptionStackView.widthAnchor.constraint(equalToConstant: 153),
-            descriptionStackView.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 29),
-            descriptionStackView.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -29),
-            
+            descriptionStackView.widthAnchor.constraint(equalToConstant: Constants.descriptionStackViewWidth),
+            descriptionStackView.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: Constants.descriptionStackViewSpacing),
+            descriptionStackView.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -Constants.descriptionStackViewSpacing),
+
             ])
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         bookmarkImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            bookmarkImageView.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: 37),
-            bookmarkImageView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor, constant: -20),
-            bookmarkImageView.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -37),
-            bookmarkImageView.widthAnchor.constraint(equalToConstant: 24),
-            bookmarkImageView.heightAnchor.constraint(equalToConstant: 24),
+            bookmarkImageView.topAnchor.constraint(equalTo: cellStackView.topAnchor, constant: Constants.bookmarkImageViewSideSpacing),
+            bookmarkImageView.leadingAnchor.constraint(equalTo: descriptionStackView.trailingAnchor, constant: 20),
+            bookmarkImageView.bottomAnchor.constraint(equalTo: cellStackView.bottomAnchor, constant: -Constants.bookmarkImageViewSideSpacing),
+            bookmarkImageView.widthAnchor.constraint(equalToConstant: Constants.bookmarkImageViewWidth),
+            bookmarkImageView.heightAnchor.constraint(equalToConstant: Constants.bookmarkImageViewHeight),
         ])
     }
 }
