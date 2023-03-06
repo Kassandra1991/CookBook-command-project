@@ -14,6 +14,10 @@ class MainTableViewCell: UITableViewCell {
         static let descriptionImageViewSideSpacing: CGFloat = 29.0
         static let bookmarkImageViewSideSpacing: CGFloat = 37.0
         static let cellStackViewSideSpacing: CGFloat = 4.0
+        static let cellStackViewLeftRightSpacing: CGFloat = 20.0
+        static let bookmarkButtonSideSize: CGFloat = 24.0
+        static let bookmarkButtonTopSpasing: CGFloat = 39.0
+        static let bookmarkButtonTrailingSpasing: CGFloat = -20.0
         static let iconViewSideSpacing: CGFloat = 20.0
         static let descriptionStackViewWidth: CGFloat = 153.0
         static let numberOfLines: Int = 2
@@ -22,6 +26,7 @@ class MainTableViewCell: UITableViewCell {
         static let bookmarkImageViewHeight: CGFloat = 24.0
         static let descriptionStackViewSpacing: CGFloat = 8
         static let cellStackViewSpacing: CGFloat = 20
+        static let paddingDescriptionStackView: CGFloat = 19
     }
     
     //MARK: - property
@@ -59,10 +64,15 @@ class MainTableViewCell: UITableViewCell {
         return label
     }()
     
+    private lazy var bookmarkView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     private lazy var bookmarkButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        button.tintColor = .specialBlack
+        button.tintColor = .specialPink
         button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -85,7 +95,8 @@ class MainTableViewCell: UITableViewCell {
         cellStackView.addArrangedSubview(descriptionStackView)
         descriptionStackView.addArrangedSubview(titleLabel)
         descriptionStackView.addArrangedSubview(timeLabel)
-        cellStackView.addArrangedSubview(bookmarkButton)
+        cellStackView.addArrangedSubview(bookmarkView)
+        bookmarkView.addSubview(bookmarkButton)
     }
     
     //MARK: - flow funcs
@@ -128,8 +139,8 @@ class MainTableViewCell: UITableViewCell {
         cellStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             cellStackView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.cellStackViewSideSpacing),
-            cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant:  -20),
+            cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.cellStackViewLeftRightSpacing),
+            cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant:  -Constants.cellStackViewLeftRightSpacing),
             cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.cellStackViewSideSpacing),
         ])
         icon.translatesAutoresizingMaskIntoConstraints = false
@@ -145,18 +156,22 @@ class MainTableViewCell: UITableViewCell {
             ])
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: descriptionStackView.topAnchor, constant: 19)
+            titleLabel.topAnchor.constraint(equalTo: descriptionStackView.topAnchor, constant: Constants.paddingDescriptionStackView)
         ])
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            timeLabel.bottomAnchor.constraint(equalTo: descriptionStackView.bottomAnchor, constant: 19)
+            timeLabel.bottomAnchor.constraint(equalTo: descriptionStackView.bottomAnchor, constant: Constants.paddingDescriptionStackView)
         ])
+        bookmarkView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bookmarkView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
+            ])
         bookmarkButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            bookmarkButton.heightAnchor.constraint(equalToConstant: 24),
-            bookmarkButton.widthAnchor.constraint(equalToConstant: 24),
-            bookmarkButton.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
-            bookmarkButton.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor, constant: -20)
+            bookmarkButton.heightAnchor.constraint(equalToConstant: Constants.bookmarkButtonSideSize),
+            bookmarkButton.widthAnchor.constraint(equalToConstant: Constants.bookmarkButtonSideSize),
+            bookmarkButton.topAnchor.constraint(equalTo: bookmarkView.topAnchor, constant: Constants.bookmarkButtonTopSpasing),
+            bookmarkButton.trailingAnchor.constraint(equalTo: bookmarkView.trailingAnchor, constant: Constants.bookmarkButtonTrailingSpasing)
             ])
     }
 }
