@@ -109,6 +109,9 @@ class MainViewController: UIViewController {
         addSubViews()
         configure()
         setConstraints()
+        if let tabBarItem = self.tabBarController?.tabBar.items?[1] {   // Change the image of the active picture tabBar
+                            tabBarItem.selectedImage = UIImage(systemName: "house.fill")
+                        }
     }
     
     override func viewDidLayoutSubviews() {

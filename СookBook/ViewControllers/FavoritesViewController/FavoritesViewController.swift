@@ -19,6 +19,9 @@ final class FavoritesViewController: UIViewController {
         addSubViews()
         configure()
         setConstraints()
+        if let tabBarItem = self.tabBarController?.tabBar.items?[1] {   // Change the image of the active picture tabBar
+            tabBarItem.selectedImage = UIImage(systemName: "heart.fill")
+        }
     }
 
     // MARK: - flow funcs
