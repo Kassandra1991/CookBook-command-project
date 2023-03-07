@@ -16,15 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
-        let startVC = StartViewController()
-        let navigation = UINavigationController(rootViewController: startVC)
-        window?.rootViewController = navigation
-        window?.makeKeyAndVisible()
         window?.rootViewController = StartViewController()
-    }
-
-    func configureHomeController() -> UIViewController {
-        let recipeNavVC = UINavigationController(rootViewController: RecipeViewController())
-        return recipeNavVC
+        window?.makeKeyAndVisible()
     }
 }
