@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController {
+class CategoryListViewController: UIViewController {
     // MARK: - property
     private let tableView = UITableView()
     private var categories = [
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     }}
 
 // MARK: - extension Delegate
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension CategoryListViewController: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }

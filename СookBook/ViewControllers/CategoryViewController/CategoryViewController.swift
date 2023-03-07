@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CategoryListViewController.swift
 //  СookBook
 //
 //  Created by Alex on 26.02.2023.
