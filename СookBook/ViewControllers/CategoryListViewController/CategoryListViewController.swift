@@ -26,6 +26,7 @@ class CategoryListViewController: UIViewController {
     // MARK: - flow funcs
     private func addSubViews() {
         view.addSubview(tableView)
+        view.backgroundColor = .white
     }
 
     private func configure() {
@@ -64,21 +65,8 @@ extension CategoryListViewController: UITableViewDelegate, UITableViewDataSource
         cell.categoryNameLabel.text = item
         return cell
     }
-
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as! HeaderView
-        return header
-    }
-
-    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        UITableView.automaticDimension
-    }
-
-    public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        UITableView.automaticDimension
-    }
-
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("open")
+        let vc = CategoryViewController()
+        present(vc, animated: true)
     }
 }

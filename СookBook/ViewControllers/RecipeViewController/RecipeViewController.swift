@@ -88,7 +88,7 @@ final class RecipeViewController: UIViewController {
 
     private func configureButton() {
         instructionsButton.translatesAutoresizingMaskIntoConstraints = false
-        instructionsButton.setTitle("PreparationsStep", for: .normal)
+        instructionsButton.setTitle("Preparations steps", for: .normal)
         instructionsButton.backgroundColor = .specialRed
         instructionsButton.titleLabel?.font = .poppinsBold16()
         instructionsButton.rounded()
