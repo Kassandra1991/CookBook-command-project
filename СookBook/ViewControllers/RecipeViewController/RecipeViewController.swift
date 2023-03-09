@@ -27,14 +27,6 @@ final class RecipeViewController: UIViewController {
         super.viewDidLoad()
         addSubViews()
         configure()
-        //        networkManager.searchRecipe(by: "potato soup") { [weak self] searchData in
-        //            for data in searchData {
-        //                self?.networkManager.searchRecipeById(by: data.id) { recipeDescription in
-        //                    self?.ingredients = recipeDescription.extendedIngredients
-        //                    print(self?.ingredients)
-        //                }
-        //            }
-        //        }
     }
 
     // MARK: - flow funcs
