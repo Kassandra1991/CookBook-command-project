@@ -31,6 +31,8 @@ class MainTableViewCell: UITableViewCell {
     
     //MARK: - property
     
+    var item: Item!
+    
     private lazy var cellStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -72,7 +74,7 @@ class MainTableViewCell: UITableViewCell {
     private lazy var bookmarkButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        button.tintColor = .specialPink
+        button.tintColor = .specialBlack
         button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -102,14 +104,20 @@ class MainTableViewCell: UITableViewCell {
     
     //MARK: - flow funcs
     func configure(with item: Item){
+        self.item = item
         guard let imageName = item.image,
               let title = item.title,
-              let time = item.time
+              let time = item.time,
+              let status = item.isFavorite
         else { return }
 
         configureImage(with: imageName)
         configureTitle(with: title)
         configureTime(with: time)
+        confifButton(status: status)
+    }
+    func confifButton(status: Bool) {
+        bookmarkButton.tintColor = status ? .specialPink : .specialBlack
     }
     
     func configureImage(with name: String) {
@@ -132,7 +140,8 @@ class MainTableViewCell: UITableViewCell {
     }
     
     @objc private func favoriteButtonTapped(sender: UIButton) {
-        sender.tintColor = .specialPink
+        item.isFavorite?.toggle()
+        sender.tintColor = item.isFavorite! ? .specialPink : .specialBlack
         print("Added to FAVORITE")
     }
     
