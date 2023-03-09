@@ -114,9 +114,9 @@ class MainTableViewCell: UITableViewCell {
         configureImage(with: imageName)
         configureTitle(with: title)
         configureTime(with: time)
-        confifButton(status: status)
+        configureHeartButton(status: status)
     }
-    func confifButton(status: Bool) {
+    func configureHeartButton(status: Bool) {
         bookmarkButton.tintColor = status ? .specialPink : .specialBlack
     }
     
