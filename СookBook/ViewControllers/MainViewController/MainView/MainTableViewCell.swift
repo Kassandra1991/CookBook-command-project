@@ -97,6 +97,7 @@ class MainTableViewCell: UITableViewCell {
         descriptionStackView.addArrangedSubview(timeLabel)
         cellStackView.addArrangedSubview(bookmarkView)
         bookmarkView.addSubview(bookmarkButton)
+        accessoryView = bookmarkButton
     }
     
     //MARK: - flow funcs
