@@ -31,6 +31,8 @@ class MainViewController: UIViewController {
     
     // MARK: - property
     
+    var networkManager = NetworkManager()
+    
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = Constants.mainStackViewSpacing
@@ -109,6 +111,7 @@ class MainViewController: UIViewController {
         addSubViews()
         configure()
         setConstraints()
+        networkManager.delegate = self
         if let tabBarItem = self.tabBarController?.tabBar.items?[1] {   // Change the image of the active picture tabBar
                             tabBarItem.selectedImage = UIImage(systemName: "house.fill")
                         }
@@ -229,5 +232,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         сontroller.recipeImageView.image = UIImage(named: items[indexPath.row].image ?? "ramen")
         present(сontroller, animated: true, completion: nil)
         print("Cell at \(indexPath.row) row tapped!")
+    }
+}
+
+
+extension MainViewController: NetworkManagerDelegate {
+    func RecipesDidRecive(_ dataFromApi: RecipeData) {
+        //        if let recipes = dataFromApi.results {
+        //            DispatchQueue.main.async {
+        //
+        //            }
+    }
+    
+    func didFailWithError(error: Error) {
+        print("Error: \(error)")
     }
 }
