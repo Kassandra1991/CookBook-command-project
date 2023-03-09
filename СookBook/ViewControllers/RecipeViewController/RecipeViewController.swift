@@ -3,6 +3,7 @@ import UIKit
 struct Ingredients{
     var ingredientName: String
     var quantity: String
+    var unit: String
     var ingredient: String
 }
 
@@ -27,16 +28,18 @@ final class RecipeViewController: UIViewController {
         super.viewDidLoad()
         addSubViews()
         configure()
-
-        networkManager.searchRecipeById(by: recipeId) { [weak self] data in
+        networkManager.searchRecipeById(by: recipeId) { [unowned self] data in
             DispatchQueue.main.async {
-                self?.recipeTitle = data.title
-                self?.recipeImage = data.image ?? ""
-                self?.ingredients.append(contentsOf: data.extendedIngredients)
-
-                print(self?.recipeTitle)
-                print(self?.recipeImage)
-                print(self?.ingredients)
+                self.recipeTitle = data.title
+                self.recipeImage = data.image ?? ""
+                self.ingredients.append(contentsOf: data.extendedIngredients)
+                self.ingredientTableView.reloadData()
+                print("1 recipeTitle")
+                print(self.recipeTitle)
+                print("2 recipeImage")
+                print(self.recipeImage)
+                print("3 ingredients")
+                print(self.ingredients)
             }
         }
     }
@@ -66,7 +69,7 @@ final class RecipeViewController: UIViewController {
     private func configureLabel() {
         makeLabel.translatesAutoresizingMaskIntoConstraints = false
         makeLabel.textColor = .specialBlack
-        makeLabel.text = "How to make french toast"
+        makeLabel.text = recipeTitle
         makeLabel.font = .poppinsBold24()
         makeLabel.textAlignment = .left
         makeLabel.numberOfLines = 0
@@ -74,7 +77,7 @@ final class RecipeViewController: UIViewController {
 
     private func configureImageView() {
         recipeImageView.translatesAutoresizingMaskIntoConstraints = false
-        recipeImageView.image = UIImage(named: "recipe-1")
+        recipeImageView.image = UIImage(named: recipeImage)
         recipeImageView.layer.masksToBounds = true
         recipeImageView.contentMode = .scaleAspectFill
         recipeImageView.rounded()
@@ -147,8 +150,8 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         let item = ingredients[indexPath.row]
         cell.ingredientLabel.text = item.name
-        cell.quantityLabel.text = "\(item.amount)"
-        cell.ingredientImage.image = UIImage(named: item.image)
+        cell.quantityLabel.text = "\(item.amount) \(item.unit ?? "")"
+        cell.ingredientImage.image = UIImage(named: "\(item.image)")
         return cell
     }
 
