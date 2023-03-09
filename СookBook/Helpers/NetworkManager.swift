@@ -22,15 +22,17 @@ enum RequestType {
 
 //MARK: - Data parser by URL
 struct NetworkManager {
-    
-    private let apiKey = "79ea5edce99f4689acc8b4ec479d1ea3"
+
+    //77ac3fc6f57d4079889bc3d5c4fd0626
+    //79ea5edce99f4689acc8b4ec479d1ea3
+    private let apiKey = "77ac3fc6f57d4079889bc3d5c4fd0626"
     private let urlApi = "https://api.spoonacular.com"
-    
+
     var delegate: NetworkManagerDelegate?
-    
+
     func getRecipes(_ requestType: RequestType, category: String? = nil) {
         let urlString = currentUrl(requestType, category: category)
-        
+
         guard let url = URL(string: urlString) else { return  }
         URLSession.shared.dataTask(with: url) {data, response, error in
             guard let data = data else { return }
@@ -44,11 +46,11 @@ struct NetworkManager {
             }
         }.resume()
     }
-    
+
     //MARK: - searchRecipe
     func searchRecipe(by title: String, results: @escaping ([SearchData]) -> Void) {
         let findTitle = title.replacingOccurrences(of: " ", with: "+")
-        let urlString = "https://api.spoonacular.com/recipes/autocomplete?apiKey=\(apiKey)&query=\(findTitle)&number=25"
+        let urlString = "https://api.spoonacular.com/recipes/autocomplete?apiKey=\(apiKey)&query=\(findTitle)&number=10"
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard error == nil else { return }
@@ -61,7 +63,7 @@ struct NetworkManager {
             }
         }.resume()
     }
-    
+
     //MARK: - searchRecipeById
     func searchRecipeById(by id: Int, results: @escaping (RecipeData.RecipeDescription) -> Void) {
         let urlString = "https://api.spoonacular.com/recipes/\(id)/information?includeNutrition=true&apiKey=\(apiKey)"
@@ -77,7 +79,12 @@ struct NetworkManager {
             }
         }.resume()
     }
-    
+
+    private func getIngredientImage(imageName: String) -> String {
+        let urlString = " https://spoonacular.com/cdn/ingredients_100x100/\(imageName)"
+        return urlString
+    }
+
     //MARK: - Private current URL method
     private func currentUrl(_ forRequest: RequestType, category: String? = nil) -> String {
         var url = String()
@@ -93,3 +100,4 @@ struct NetworkManager {
         return url
     }
 }
+
