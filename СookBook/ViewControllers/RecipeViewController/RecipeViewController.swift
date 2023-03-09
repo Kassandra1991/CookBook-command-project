@@ -3,6 +3,7 @@ import UIKit
 struct Ingredients{
     var ingredientName: String
     var quantity: String
+    var ingredient: String
 }
 
 final class RecipeViewController: UIViewController {
@@ -10,23 +11,34 @@ final class RecipeViewController: UIViewController {
     private let headerHeight: CGFloat = 44
     let networkManager = NetworkManager()
 
+    var recipeId = 716429
+    var recipeTitle = "что-то"
+    var recipeImage = "что-то"
+
     // MARK: - property
     let makeLabel = UILabel()
     let recipeImageView = UIImageView()
     private var ingredientTableView = UITableView()
     private var instructionsButton = UIButton()
 
-    private var ingredients: [Ingredients] = [
-        Ingredients(ingredientName: "Sugar", quantity: "1 cup"),
-        Ingredients(ingredientName: "Sugar", quantity: "1 cup"),
-        Ingredients(ingredientName: "Sugar", quantity: "1 cup"),
-        Ingredients(ingredientName: "Sugar", quantity: "1 cup")
-    ]
+    private var ingredients: [RecipeData.Ingredients] = []
     // MARK: - life cycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubViews()
         configure()
+
+        networkManager.searchRecipeById(by: recipeId) { [weak self] data in
+            DispatchQueue.main.async {
+                self?.recipeTitle = data.title
+                self?.recipeImage = data.image ?? ""
+                self?.ingredients.append(contentsOf: data.extendedIngredients)
+
+                print(self?.recipeTitle)
+                print(self?.recipeImage)
+                print(self?.ingredients)
+            }
+        }
     }
 
     // MARK: - flow funcs
@@ -134,8 +146,9 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientTableViewCell", for: indexPath) as! IngredientTableViewCell
         cell.selectionStyle = .none
         let item = ingredients[indexPath.row]
-        cell.ingredientLabel.text = item.ingredientName
-        cell.quantityLabel.text = item.quantity
+        cell.ingredientLabel.text = item.name
+        cell.quantityLabel.text = "\(item.amount)"
+        cell.ingredientImage.image = UIImage(named: item.image)
         return cell
     }
 
