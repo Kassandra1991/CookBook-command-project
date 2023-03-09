@@ -226,7 +226,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MainTableViewCell
-        cell.configure(with: recipies!)
+        cell.configure(with: recipies!.results[indexPath.row])
         cell.tintColor = .specialBlack
         cell.selectionStyle = .none
         return  cell
@@ -245,7 +245,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 extension MainViewController: NetworkManagerDelegate {
     func RecipesDidRecive(_ dataFromApi: RecipeData) {
         recipies = dataFromApi
-        print(recipies?.results.first)
+        print(recipies?.results.first?.image)
         DispatchQueue.main.async {
             self.tableView.reloadData()
 

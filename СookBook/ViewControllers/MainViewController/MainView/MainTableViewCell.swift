@@ -31,31 +31,13 @@ class MainTableViewCell: UITableViewCell {
     
     //MARK: - property
     
-    var item: RecipeData!
-    
-//    private lazy var cellStackView: UIStackView = {
-//        let stackView = UIStackView()
-//        stackView.axis = .horizontal
-//        stackView.distribution = .fill
-//        stackView.spacing = Constants.cellStackViewSpacing
-//        stackView.backgroundColor = #colorLiteral(red: 0.9450981021, green: 0.9450981021, blue: 0.9450981021, alpha: 1)
-//        stackView.rounded()
-//        return stackView
-//    }()
+    var item: RecipeData.RecipeDescription!
     
     private lazy var icon: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
-//    private lazy var descriptionStackView: UIStackView = {
-//        let stackView = UIStackView()
-//        stackView.axis = .vertical
-//        stackView.distribution = .fillEqually
-//        stackView.spacing = Constants.descriptionStackViewSpacing
-//        return stackView
-//    }()
     
     private lazy var titleLabel: UILabel = {
         let label  = UILabel()
@@ -67,20 +49,15 @@ class MainTableViewCell: UITableViewCell {
         return label
     }()
     
-//    private lazy var bookmarkView: UIView = {
-//        let view = UIView()
-//        return view
-//    }()
-    
-//    private let customAccessory = UICellAccessory.CustomViewConfiguration(customView: <#T##UIView#>, placement: <#T##UICellAccessory.Placement#>)
-    
     private lazy var heartButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         button.tintColor = .specialBlack
-        //button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+//    private let customAccessory = UICellAccessory.CustomViewConfiguration(customView: UIImageView(image: UIImage(systemName: "heart.fill")), placement: .trailing(displayed: .always))
 
     //MARK: - lifecycle
     
@@ -99,28 +76,19 @@ class MainTableViewCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(timeLabel)
         contentView.addSubview(heartButton)
-//        addSubview(cellStackView)
-//        cellStackView.addArrangedSubview(icon)
-//        cellStackView.addArrangedSubview(descriptionStackView)
-//        descriptionStackView.addArrangedSubview(titleLabel)
-//        descriptionStackView.addArrangedSubview(timeLabel)
-//        cellStackView.addArrangedSubview(bookmarkView)
-//        bookmarkView.addSubview(bookmarkButton)
-//        accessoryView = bookmarkView
+        contentView.backgroundColor = .specialGray
     }
     
     //MARK: - flow funcs
-    func configure(with item: RecipeData){
+    func configure(with item: RecipeData.RecipeDescription){
         self.item = item
-        guard let imageName = item.results.first?.image,
-              let title = item.results.first?.title,
-              let time = item.results.first?.readyInMinutes
+        guard let imageName = item.image
               //let status = item.isFavorite
         else { return }
 
         configureImage(with: imageName)
-        configureTitle(with: title)
-        configureTime(with: time)
+        configureTitle(with: item.title)
+        configureTime(with: item.readyInMinutes)
         //configureHeartButton(status: status)
     }
 //    func configureHeartButton(status: Bool) {
@@ -130,27 +98,28 @@ class MainTableViewCell: UITableViewCell {
     func configureImage(with name: String) {
         icon.contentMode = .scaleAspectFill
         icon.clipsToBounds = true
-        icon.image = UIImage(named: name)
+        icon.image = UIImage(named: "ramen")//name)
     }
 
-    func configureTitle(with text: String) {
+    func configureTitle(with text: String?) {
         titleLabel.font = .poppinsBold14()
         titleLabel.numberOfLines = 0
         titleLabel.text = text
     }
 
-    func configureTime(with time: Int) {
-        timeLabel.text = "\(time) Mins"
+    func configureTime(with time: Int?) {
+        timeLabel.text = "\(time ?? .zero) Mins"
         timeLabel.font = .poppinsRegular12()
         timeLabel.textColor = .specialLightGray
         timeLabel.contentMode = .left
     }
     
-//    @objc private func favoriteButtonTapped(sender: UIButton) {
+    @objc private func favoriteButtonTapped(sender: UIButton) {
 //        item.isFavorite?.toggle()
 //        sender.tintColor = item.isFavorite! ? .specialPink : .specialBlack
-//        print("Added to FAVORITE")
-//    }
+        sender.tintColor = .specialPink
+        print("Added to FAVORITE")
+    }
     
     func setConstraints() {
         icon.translatesAutoresizingMaskIntoConstraints = false
@@ -165,7 +134,7 @@ class MainTableViewCell: UITableViewCell {
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 19),
             titleLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 20),
             titleLabel.widthAnchor.constraint(equalToConstant: 175),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40)
+            titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 40)
         ])
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
