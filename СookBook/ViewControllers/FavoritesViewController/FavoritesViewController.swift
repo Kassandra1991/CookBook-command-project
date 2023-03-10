@@ -10,8 +10,11 @@ import UIKit
 final class FavoritesViewController: UIViewController {
 
     // MARK: - properties
+    var databaseManager = DatabaseManager()
+    let networkManager = NetworkManager()
+
     private let tableView = UITableView()
-    private var cellObjects = [FavoriteRecipe]()
+    private var cellObjects = [RecipeData.RecipeDescription]()
 
     // MARK: - life cycle funcs
     override func viewDidLoad() {
@@ -19,16 +22,44 @@ final class FavoritesViewController: UIViewController {
         addSubViews()
         configure()
         setConstraints()
-        if let tabBarItem = self.tabBarController?.tabBar.items?[1] {   // Change the image of the active picture tabBar
-            tabBarItem.selectedImage = UIImage(systemName: "heart.fill")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        updateData()
+        getRecipes()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        cellObjects.removeAll()
+    }
+
+
+    // MARK: - flow funcs
+    private func getRecipes() {
+        // TODO: check if recipe id already exist in the collection before querying
+        if !databaseManager.savedRecipes.isEmpty {
+            for recipe in databaseManager.savedRecipes {
+                networkManager.searchRecipeById(by: Int(recipe.recipeID)) { [self] data in
+                        cellObjects.append(data)
+                        updateData()
+                }
+            }
+        } else {
+            print("Saved recipes collection is empty")
         }
     }
 
-    // MARK: - flow funcs
+    private func updateData() {
+        databaseManager.fetchRecipes()
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+
     private func configure() {
         configureViews()
         configureTableView()
-        configureCellObjects()
     }
 
     private func addSubViews() {
@@ -37,6 +68,9 @@ final class FavoritesViewController: UIViewController {
 
     private func configureViews() {
         view.backgroundColor = .white
+        if let tabBarItem = self.tabBarController?.tabBar.items?[1] {
+            tabBarItem.selectedImage = UIImage(systemName: "heart.fill")
+        }
     }
 
     private func configureTableView() {
@@ -57,13 +91,6 @@ final class FavoritesViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
-    private func configureCellObjects() {
-        let testObjects = [FavoriteRecipe(title: "How to make french toast", imageName: "recipe-1"),
-                           FavoriteRecipe(title: "How to make sushi at home", imageName: "recipe-2"),
-                           FavoriteRecipe(title: "Easy oatmeal recipe", imageName: "recipe-3")]
-        cellObjects.append(contentsOf: testObjects)
-    }
 }
 
     // MARK: - UITableViewDataSource
@@ -78,7 +105,7 @@ extension FavoritesViewController: UITableViewDataSource {
         }
 
         let data = cellObjects[indexPath.row]
-        cell.configure(title: data.title, imageName: data.imageName)
+        cell.configure(title: data.title, imageName: "recipe-1")
 
         return cell
     }
@@ -91,21 +118,22 @@ extension FavoritesViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let сontroller = RecipeViewController()
-        сontroller.makeLabel.text = cellObjects[indexPath.row].title
-        сontroller.recipeImageView.image = UIImage(named: cellObjects[indexPath.row].imageName)
-        present(сontroller, animated: true, completion: nil)
-        print("Cell at \(indexPath.row) row tapped!")
+        let recipeVC = RecipeViewController()
+        // TODO: Pass data to the next VC
+        present(recipeVC, animated: true, completion: nil)
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
-            self.cellObjects.remove(at: indexPath.row)
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [self] (_, _, completionHandler) in
+            databaseManager.deleteRecipe(databaseManager.savedRecipes[indexPath.row])
+            cellObjects.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            updateData()
             completionHandler(true)
         }
+
         deleteAction.image = UIImage(systemName: "trash")?.withTintColor(.systemPink, renderingMode: .alwaysOriginal)
-        deleteAction.backgroundColor = .systemGroupedBackground
+        deleteAction.backgroundColor = .white
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         return configuration
     }
