@@ -53,6 +53,7 @@ final class FavoritesTableViewCell: UITableViewCell {
 
     private func configureLabels() {
         recipeLabel.translatesAutoresizingMaskIntoConstraints = false
+        recipeLabel.numberOfLines = 0
         recipeLabel.text = "How to make french toast"
         recipeLabel.textAlignment = .natural
         recipeLabel.font = .systemFont(ofSize: 16, weight: .semibold)
@@ -68,6 +69,7 @@ final class FavoritesTableViewCell: UITableViewCell {
 
             recipeLabel.topAnchor.constraint(equalTo: recipeImage.bottomAnchor),
             recipeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            recipeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             recipeLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
