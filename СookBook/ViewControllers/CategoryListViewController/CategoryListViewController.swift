@@ -19,6 +19,7 @@ class CategoryListViewController: UIViewController {
         "Snack",
         "Drink"
     ]
+    
     // MARK: - life cycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()

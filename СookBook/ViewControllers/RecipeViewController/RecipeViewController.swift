@@ -4,7 +4,6 @@ struct Ingredients{
     var ingredientName: String
     var quantity: String
     var unit: String
-    var ingredient: String
 }
 
 final class RecipeViewController: UIViewController {
@@ -12,12 +11,14 @@ final class RecipeViewController: UIViewController {
     private let headerHeight: CGFloat = 44
     let networkManager = NetworkManager()
     var recipeId = 716429 // придет от Саши
+
     // MARK: - property
     let makeLabel = UILabel()
     let recipeImageView = UIImageView()
     private var ingredientTableView = UITableView()
     private var instructionsButton = UIButton()
     private var ingredients: [RecipeData.Ingredients] = []
+    
     // MARK: - life cycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,7 @@ final class RecipeViewController: UIViewController {
             }
         }
     }
+
     // MARK: - flow funcs
     private func addSubViews() {
         view.addSubview(makeLabel)

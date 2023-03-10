@@ -41,6 +41,5 @@ class IngredientTableViewCell: UITableViewCell {
         ingredientLabel.textColor = .specialBlack
         quantityLabel.font = .poppinsRegular14()
         quantityLabel.textColor = isSelected ? .white : .specialLightGray
-
     }
 }
