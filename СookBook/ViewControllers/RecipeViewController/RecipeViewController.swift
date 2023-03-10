@@ -27,7 +27,6 @@ final class RecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubViews()
-        configure()
         networkManager.searchRecipeById(by: recipeId) { [unowned self] data in
             DispatchQueue.main.async {
                 self.recipeTitle = data.title
@@ -42,8 +41,8 @@ final class RecipeViewController: UIViewController {
                 print(self.ingredients)
             }
         }
+        configure()
     }
-
     // MARK: - flow funcs
     private func addSubViews() {
         view.addSubview(makeLabel)
@@ -156,8 +155,8 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "IngredientHeaderView") as! IngredientHeaderView
-            return header
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "IngredientHeaderView") as! IngredientHeaderView
+        return header
     }
 
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
