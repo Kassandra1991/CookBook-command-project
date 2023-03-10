@@ -3,38 +3,34 @@ import UIKit
 struct Ingredients{
     var ingredientName: String
     var quantity: String
+    var unit: String
 }
 
 final class RecipeViewController: UIViewController {
     // MARK: - constant
     private let headerHeight: CGFloat = 44
     let networkManager = NetworkManager()
+    var recipeId = 716429 // придет от Саши
 
     // MARK: - property
     let makeLabel = UILabel()
     let recipeImageView = UIImageView()
     private var ingredientTableView = UITableView()
     private var instructionsButton = UIButton()
-
-    private var ingredients: [Ingredients] = [
-        Ingredients(ingredientName: "Sugar", quantity: "1 cup"),
-        Ingredients(ingredientName: "Sugar", quantity: "1 cup"),
-        Ingredients(ingredientName: "Sugar", quantity: "1 cup"),
-        Ingredients(ingredientName: "Sugar", quantity: "1 cup")
-    ]
+    private var ingredients: [RecipeData.Ingredients] = []
+    
     // MARK: - life cycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubViews()
         configure()
-        //        networkManager.searchRecipe(by: "potato soup") { [weak self] searchData in
-        //            for data in searchData {
-        //                self?.networkManager.searchRecipeById(by: data.id) { recipeDescription in
-        //                    self?.ingredients = recipeDescription.extendedIngredients
-        //                    print(self?.ingredients)
-        //                }
-        //            }
-        //        }
+        networkManager.searchRecipeById(by: recipeId) { [unowned self] data in
+            DispatchQueue.main.async {
+                self.ingredients.append(contentsOf: data.extendedIngredients)
+                self.ingredientTableView.reloadData()
+                print(self.ingredients)
+            }
+        }
     }
 
     // MARK: - flow funcs
@@ -62,7 +58,6 @@ final class RecipeViewController: UIViewController {
     private func configureLabel() {
         makeLabel.translatesAutoresizingMaskIntoConstraints = false
         makeLabel.textColor = .specialBlack
-        makeLabel.text = "How to make french toast"
         makeLabel.font = .poppinsBold24()
         makeLabel.textAlignment = .left
         makeLabel.numberOfLines = 0
@@ -70,7 +65,6 @@ final class RecipeViewController: UIViewController {
 
     private func configureImageView() {
         recipeImageView.translatesAutoresizingMaskIntoConstraints = false
-        recipeImageView.image = UIImage(named: "recipe-1")
         recipeImageView.layer.masksToBounds = true
         recipeImageView.contentMode = .scaleAspectFill
         recipeImageView.rounded()
@@ -129,7 +123,9 @@ final class RecipeViewController: UIViewController {
     }
 
     @objc func instructionButtonAction() {
-        print("open VC")
+//        let vc = ViewController()
+//        present(vc, animated: true)
+        print("Open Preparations Steps")
     }
 }
 // MARK: - extension Delegate
@@ -142,14 +138,15 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientTableViewCell", for: indexPath) as! IngredientTableViewCell
         cell.selectionStyle = .none
         let item = ingredients[indexPath.row]
-        cell.ingredientLabel.text = item.ingredientName
-        cell.quantityLabel.text = item.quantity
+        cell.ingredientLabel.text = item.name
+        cell.quantityLabel.text = "\(item.amount) \(item.unit ?? "")"
+        cell.ingredientImage.image = UIImage(named: "ingredients")
         return cell
     }
 
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "IngredientHeaderView") as! IngredientHeaderView
-            return header
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "IngredientHeaderView") as! IngredientHeaderView
+        return header
     }
 
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
