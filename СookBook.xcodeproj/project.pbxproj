@@ -13,6 +13,8 @@
 		18448AB829B3C19700F7EC3D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F076929B1143F00E69D08 /* UIFont+Extension.swift */; };
 		18448AB929B3C19900F7EC3D /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F076A29B1143F00E69D08 /* UIView+Extension.swift */; };
 		18448ABB29B3C19C00F7EC3D /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA7F076529B113A400E69D08 /* Poppins-Regular.ttf */; };
+		6002666129BB65430056D738 /* StepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6002666029BB65430056D738 /* StepViewController.swift */; };
+		6002666329BB87460056D738 /* RecipeInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6002666229BB87460056D738 /* RecipeInstruction.swift */; };
 		8E25CF5629B376CC00D55E2B /* CategoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25CF5529B376CC00D55E2B /* CategoryListViewController.swift */; };
 		8E25CF5A29B3788E00D55E2B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25CF5829B3788E00D55E2B /* TableViewCell.swift */; };
 		8E25CF5B29B3788E00D55E2B /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E25CF5929B3788E00D55E2B /* TableViewCell.xib */; };
@@ -51,6 +53,8 @@
 /* Begin PBXFileReference section */
 		032FB56F29ACDDA100608E11 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		18448ABC29B3D22400F7EC3D /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		6002666029BB65430056D738 /* StepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewController.swift; sourceTree = "<group>"; };
+		6002666229BB87460056D738 /* RecipeInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstruction.swift; sourceTree = "<group>"; };
 		8E25CF5529B376CC00D55E2B /* CategoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewController.swift; sourceTree = "<group>"; };
 		8E25CF5829B3788E00D55E2B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		8E25CF5929B3788E00D55E2B /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
@@ -103,6 +107,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6002665E29BB64B90056D738 /* StepViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6002666029BB65430056D738 /* StepViewController.swift */,
+			);
+			path = StepViewController;
+			sourceTree = "<group>";
+		};
 		8E25CF5429B376B800D55E2B /* CategoryListViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +240,7 @@
 				FAA493E229B7D101006B55EE /* RecipeData.swift */,
 				FAA493DE29B7D0DD006B55EE /* Model.swift */,
 				FAA493E029B7D0F9006B55EE /* SearchData.swift */,
+				6002666229BB87460056D738 /* RecipeInstruction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -235,6 +248,7 @@
 		FA7F076E29B1148900E69D08 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				6002665E29BB64B90056D738 /* StepViewController */,
 				FA7F07CA29B1D82200E69D08 /* StartViewController */,
 				FA7F07D629B1DA1900E69D08 /* Base */,
 				FA7F07C729B1D7EF00E69D08 /* MainViewController */,
@@ -401,10 +415,12 @@
 				FA7F07E329B1DC4300E69D08 /* TrendsView.swift in Sources */,
 				18448AB829B3C19700F7EC3D /* UIFont+Extension.swift in Sources */,
 				FAA493DD29B7D0B6006B55EE /* FavoriteRecipe.swift in Sources */,
+				6002666329BB87460056D738 /* RecipeInstruction.swift in Sources */,
 				FA7F07D529B1D9CC00E69D08 /* CategoriesView.swift in Sources */,
 				8E25CF5629B376CC00D55E2B /* CategoryListViewController.swift in Sources */,
 				FA68842729ABDFE500F14554 /* CategoryViewController.swift in Sources */,
 				FA50294329B1DDD500E7D048 /* MainTableViewCell.swift in Sources */,
+				6002666129BB65430056D738 /* StepViewController.swift in Sources */,
 				032FB57029ACDDA100608E11 /* MainViewController.swift in Sources */,
 				FAA493E529B7D164006B55EE /* Item.swift in Sources */,
 				FAA493E329B7D101006B55EE /* RecipeData.swift in Sources */,
