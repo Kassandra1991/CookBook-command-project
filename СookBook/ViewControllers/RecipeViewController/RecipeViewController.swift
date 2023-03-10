@@ -11,37 +11,25 @@ final class RecipeViewController: UIViewController {
     // MARK: - constant
     private let headerHeight: CGFloat = 44
     let networkManager = NetworkManager()
-
-    var recipeId = 716429
-    var recipeTitle = "что-то"
-    var recipeImage = "что-то"
-
+    var recipeId = 716429 // придет от Саши
     // MARK: - property
     let makeLabel = UILabel()
     let recipeImageView = UIImageView()
     private var ingredientTableView = UITableView()
     private var instructionsButton = UIButton()
-
     private var ingredients: [RecipeData.Ingredients] = []
     // MARK: - life cycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubViews()
+        configure()
         networkManager.searchRecipeById(by: recipeId) { [unowned self] data in
             DispatchQueue.main.async {
-                self.recipeTitle = data.title
-                self.recipeImage = data.image ?? ""
                 self.ingredients.append(contentsOf: data.extendedIngredients)
                 self.ingredientTableView.reloadData()
-                print("1 recipeTitle")
-                print(self.recipeTitle)
-                print("2 recipeImage")
-                print(self.recipeImage)
-                print("3 ingredients")
                 print(self.ingredients)
             }
         }
-        configure()
     }
     // MARK: - flow funcs
     private func addSubViews() {
@@ -68,7 +56,6 @@ final class RecipeViewController: UIViewController {
     private func configureLabel() {
         makeLabel.translatesAutoresizingMaskIntoConstraints = false
         makeLabel.textColor = .specialBlack
-        makeLabel.text = recipeTitle
         makeLabel.font = .poppinsBold24()
         makeLabel.textAlignment = .left
         makeLabel.numberOfLines = 0
@@ -76,7 +63,6 @@ final class RecipeViewController: UIViewController {
 
     private func configureImageView() {
         recipeImageView.translatesAutoresizingMaskIntoConstraints = false
-        recipeImageView.image = UIImage(named: recipeImage)
         recipeImageView.layer.masksToBounds = true
         recipeImageView.contentMode = .scaleAspectFill
         recipeImageView.rounded()
@@ -135,7 +121,9 @@ final class RecipeViewController: UIViewController {
     }
 
     @objc func instructionButtonAction() {
-        print("open VC")
+//        let vc = ViewController()
+//        present(vc, animated: true)
+        print("Open Preparations Steps")
     }
 }
 // MARK: - extension Delegate
@@ -150,7 +138,7 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
         let item = ingredients[indexPath.row]
         cell.ingredientLabel.text = item.name
         cell.quantityLabel.text = "\(item.amount) \(item.unit ?? "")"
-        cell.ingredientImage.image = UIImage(named: "\(item.image)")
+        cell.ingredientImage.image = UIImage(named: "ingredients")
         return cell
     }
 
