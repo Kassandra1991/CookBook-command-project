@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MainTableViewCell: UITableViewCell {
 
@@ -98,7 +99,9 @@ class MainTableViewCell: UITableViewCell {
     func configureImage(with name: String) {
         icon.contentMode = .scaleAspectFill
         icon.clipsToBounds = true
-        icon.image = UIImage(named: "ramen")//name)
+        icon.rounded()
+        guard let url = URL(string: name) else { return }
+        icon.kf.setImage(with: url)
     }
 
     func configureTitle(with text: String?) {

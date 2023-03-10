@@ -23,9 +23,7 @@ enum RequestType {
 //MARK: - Data parser by URL
 struct NetworkManager {
 
-    //77ac3fc6f57d4079889bc3d5c4fd0626
-    //79ea5edce99f4689acc8b4ec479d1ea3
-    private let apiKey = "77ac3fc6f57d4079889bc3d5c4fd0626"
+    private let apiKey = "79ea5edce99f4689acc8b4ec479d1ea3"
     private let urlApi = "https://api.spoonacular.com"
 
     var delegate: NetworkManagerDelegate?
