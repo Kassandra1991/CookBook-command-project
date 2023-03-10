@@ -82,6 +82,26 @@ struct NetworkManager {
         let urlString = " https://spoonacular.com/cdn/ingredients_100x100/\(imageName)"
         return urlString
     }
+    //MARK: - searchRecipeInstructions
+    func searchRecipeInstructions(withId id: Int, completionHandler: @escaping ([RecipeInstruction]) -> Void) {
+            
+            let urlString = "https://api.spoonacular.com/recipes/\(id)/analyzedInstructions?apiKey=\(apiKey)"
+            
+            guard let url = URL(string: urlString) else { return }
+
+            URLSession.shared.dataTask(with: url) {data, response, error in
+                guard let data = data else { return }
+                
+                let decoder = JSONDecoder()
+                do {
+                    let decodedData = try decoder.decode([RecipeInstruction].self, from: data)
+                    completionHandler(decodedData)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }.resume()
+        }
+
 
     //MARK: - Private current URL method
     private func currentUrl(_ forRequest: RequestType, category: String? = nil) -> String {
