@@ -100,7 +100,7 @@ extension StepViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension StepViewController:  {
+extension StepViewController {
     func searchInstructions(forRecipeWithId id: Int) {
         networkManager.searchRecipeInstructions(withId: id) { recipes in
             if let recipe = recipes.first {
