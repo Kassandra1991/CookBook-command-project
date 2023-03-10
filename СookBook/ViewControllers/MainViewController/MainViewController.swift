@@ -31,6 +31,8 @@ class MainViewController: UIViewController {
     
     // MARK: - property
     
+    var networkManager = NetworkManager()
+    
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = Constants.mainStackViewSpacing
@@ -93,6 +95,8 @@ class MainViewController: UIViewController {
         return imageView
     }()
     
+    private var recipies: RecipeData?
+    
     private let items: [Item] = [
     Item(id: 0, title: "Papper ramen", category: "Noodle", image: "ramen", bookmark: "bookmark", time: 10, isFavorite: false),
     Item(id: 1, title: "Sweet souse noodle", category: "Lunch", image: "ramen2", bookmark: "bookmark", time: 15, isFavorite: false),
@@ -109,7 +113,9 @@ class MainViewController: UIViewController {
         addSubViews()
         configure()
         setConstraints()
-        if let tabBarItem = self.tabBarController?.tabBar.items?[1] {   // Change the image of the active picture tabBar
+        networkManager.delegate = self
+        networkManager.getRecipes(.random)
+        if let tabBarItem = self.tabBarController?.tabBar.items?[0] {   // Change the image of the active picture tabBar
                             tabBarItem.selectedImage = UIImage(systemName: "house.fill")
                         }
     }
@@ -212,12 +218,16 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        guard let counting = recipies?.results.count else {
+            return 0
+        }
+        return counting
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MainTableViewCell
-        cell.configure(with: items[indexPath.row])
+        cell.configure(with: recipies!.results[indexPath.row])
+        cell.tintColor = .specialBlack
         cell.selectionStyle = .none
         return  cell
     }
@@ -228,5 +238,21 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         сontroller.recipeImageView.image = UIImage(named: items[indexPath.row].image ?? "ramen")
         present(сontroller, animated: true, completion: nil)
         print("Cell at \(indexPath.row) row tapped!")
+    }
+}
+
+
+extension MainViewController: NetworkManagerDelegate {
+    func RecipesDidRecive(_ dataFromApi: RecipeData) {
+        recipies = dataFromApi
+        print(recipies?.results.first?.image)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+        print("Error: \(error)")
     }
 }
