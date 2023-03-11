@@ -10,7 +10,7 @@ final class RecipeViewController: UIViewController {
     // MARK: - constant
     private let headerHeight: CGFloat = 44
     let networkManager = NetworkManager()
-    var recipeId = 716429 // придет от Саши
+    var recipeId = 0
     // MARK: - property
     let makeLabel = UILabel()
     let recipeImageView = UIImageView()

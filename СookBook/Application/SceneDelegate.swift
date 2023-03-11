@@ -16,8 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
-        window?.rootViewController = CategoryViewController(categoryName: "dessert")
+//        window?.rootViewController = CategoryViewController(categoryName: "dessert")
+
         //    window?.rootViewController = StepViewController(id: 715514)
+        window?.rootViewController = StartViewController()
         window?.makeKeyAndVisible()
     }
 }

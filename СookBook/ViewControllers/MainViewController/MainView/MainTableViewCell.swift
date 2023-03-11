@@ -32,7 +32,7 @@ class MainTableViewCell: UITableViewCell {
     
     var item: RecipeData.RecipeDescription!
     
-    private lazy var icon: UIImageView = {
+    var icon: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -97,8 +97,8 @@ class MainTableViewCell: UITableViewCell {
         icon.contentMode = .scaleAspectFill
         icon.clipsToBounds = true
         icon.rounded()
-        guard let url = URL(string: name) else { return }
-        icon.kf.setImage(with: url)
+//        guard let url = URL(string: name) else { return }
+//        icon.kf.setImage(with: url)
     }
 
     func configureTitle(with text: String?) {
@@ -151,4 +151,10 @@ class MainTableViewCell: UITableViewCell {
             heartButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.heartButtonTopSpasing)
             ])
     }
+
+    override func prepareForReuse() {
+            super.prepareForReuse()
+            icon.kf.cancelDownloadTask()
+            icon.image = nil
+        }
 }
