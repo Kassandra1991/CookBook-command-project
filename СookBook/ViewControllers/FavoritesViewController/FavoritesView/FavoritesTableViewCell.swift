@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class FavoritesTableViewCell: UITableViewCell {
 
@@ -74,8 +75,8 @@ final class FavoritesTableViewCell: UITableViewCell {
         ])
     }
 
-    public func configure(title: String, imageName: String) {
+    public func configure(title: String, image: URL?) {
         recipeLabel.text = title
-        recipeImage.image = UIImage(named: imageName)
+        recipeImage.kf.setImage(with: image)
     }
 }

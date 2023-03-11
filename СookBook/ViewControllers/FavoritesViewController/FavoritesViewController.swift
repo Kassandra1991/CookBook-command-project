@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class FavoritesViewController: UIViewController {
 
@@ -100,12 +101,12 @@ extension FavoritesViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoritesTableViewCell.identifier, for: indexPath) as? FavoritesTableViewCell else {
-            return UITableViewCell()
-        }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: FavoritesTableViewCell.identifier,
+            for: indexPath) as? FavoritesTableViewCell else { return UITableViewCell() }
 
         let data = cellObjects[indexPath.row]
-        cell.configure(title: data.title, imageName: "recipe-1")
+        cell.configure(title: data.title, image: URL(string: data.image ?? ""))
 
         return cell
     }
@@ -118,8 +119,13 @@ extension FavoritesViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = cellObjects[indexPath.row]
         let recipeVC = RecipeViewController()
-        // TODO: Pass data to the next VC
+
+        recipeVC.recipeId = data.id
+        recipeVC.recipeImageView.kf.setImage(with: URL(string: data.image ?? ""))
+        recipeVC.makeLabel.text = data.title
+
         present(recipeVC, animated: true, completion: nil)
     }
 
