@@ -22,7 +22,9 @@ enum RequestType {
 //MARK: - Data parser by URL
 struct NetworkManager {
 
-    private let apiKey = "79ea5edce99f4689acc8b4ec479d1ea3"
+    //77ac3fc6f57d4079889bc3d5c4fd0626
+    //79ea5edce99f4689acc8b4ec479d1ea3
+    private let apiKey = "77ac3fc6f57d4079889bc3d5c4fd0626"
     private let urlApi = "https://api.spoonacular.com"
 
     var delegate: NetworkManagerDelegate?
@@ -100,6 +102,29 @@ struct NetworkManager {
                 }
             }.resume()
         }
+    //MARK: - fetchRecipes
+    func fetchRecipes(category: String, completion: @escaping ([Int]?, Error?) -> Void) {
+        let urlString = "https://api.spoonacular.com/recipes/complexSearch?apiKey=\(apiKey)&type=\(category)&addRecipeInformation=false"
+        guard let url = URL(string: urlString) else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(nil, error)
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                let results = json?["results"] as? [[String: Any]]
+                let recipeIds = results?.compactMap { $0["id"] as? Int }
+                completion(recipeIds, nil)
+            } catch {
+                completion(nil, error)
+            }
+        }
+        
+        task.resume()
+    }
 
 
     //MARK: - Private current URL method
@@ -116,4 +141,5 @@ struct NetworkManager {
         }
         return url
     }
+   
 }

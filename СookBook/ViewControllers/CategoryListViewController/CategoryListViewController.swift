@@ -72,8 +72,8 @@ extension CategoryListViewController: UITableViewDelegate, UITableViewDataSource
         return cell
     }
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = CategoryViewController()
-        vc.currentCategoryName = categories[indexPath.row].lowercased()
+        let currentCategoryName = categories[indexPath.row].lowercased()
+        let vc = CategoryViewController(categoryName: currentCategoryName)
         present(vc, animated: true)
     }
 }
