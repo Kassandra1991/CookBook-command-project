@@ -57,7 +57,6 @@ class MainTableViewCell: UITableViewCell {
         return button
     }()
     
-//    private let customAccessory = UICellAccessory.CustomViewConfiguration(customView: UIImageView(image: UIImage(systemName: "heart.fill")), placement: .trailing(displayed: .always))
     //MARK: - lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -75,7 +74,8 @@ class MainTableViewCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(timeLabel)
         contentView.addSubview(heartButton)
-        contentView.backgroundColor = .specialGray
+        contentView.layer.borderColor = UIColor.specialGray.cgColor
+        contentView.layer.borderWidth = 1
     }
     
     //MARK: - flow funcs

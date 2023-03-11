@@ -233,8 +233,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let сontroller = RecipeViewController()
-        сontroller.makeLabel.text = items[indexPath.row].title
-        сontroller.recipeImageView.image = UIImage(named: items[indexPath.row].image ?? "ramen")
+        сontroller.makeLabel.text = recipies?.results[indexPath.row].title
+        сontroller.recipeImageView.image = UIImage(named: recipies?.results[indexPath.row].image ?? "ramen")
         present(сontroller, animated: true, completion: nil)
         print("Cell at \(indexPath.row) row tapped!")
     }
