@@ -4,7 +4,6 @@
 //
 //  Created by Aleksandra Asichka on 2023-02-28.
 //
-
 import UIKit
 import Kingfisher
 
@@ -59,7 +58,6 @@ class MainTableViewCell: UITableViewCell {
     }()
     
 //    private let customAccessory = UICellAccessory.CustomViewConfiguration(customView: UIImageView(image: UIImage(systemName: "heart.fill")), placement: .trailing(displayed: .always))
-
     //MARK: - lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

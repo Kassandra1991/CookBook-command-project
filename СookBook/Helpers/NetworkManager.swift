@@ -5,7 +5,6 @@
 //  Created by Андрей Колесников on 01.03.2023.
 //
 
-
 import Foundation
 
 //MARK: RecipeNetworkManagerDelegate
@@ -118,4 +117,3 @@ struct NetworkManager {
         return url
     }
 }
-

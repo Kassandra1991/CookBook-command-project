@@ -138,4 +138,3 @@ extension FavoritesViewController: UITableViewDelegate {
         return configuration
     }
 }
-
