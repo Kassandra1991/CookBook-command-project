@@ -29,7 +29,9 @@ class MainTableViewCell: UITableViewCell {
     }
     
     //MARK: - property
-    
+
+    var databaseManager = DatabaseManager()
+    var recipeId: Int!
     var item: RecipeData.RecipeDescription!
     
     var icon: UIImageView = {
@@ -78,7 +80,8 @@ class MainTableViewCell: UITableViewCell {
     }
     
     //MARK: - flow funcs
-    func configure(with item: RecipeData.RecipeDescription){
+    func configure(with item: RecipeData.RecipeDescription) {
+        self.recipeId = item.id
         self.item = item
         guard let imageName = item.image
               //let status = item.isFavorite
@@ -118,7 +121,8 @@ class MainTableViewCell: UITableViewCell {
 //        item.isFavorite?.toggle()
 //        sender.tintColor = item.isFavorite! ? .specialPink : .specialBlack
         sender.tintColor = .specialRed
-        print("Added to FAVORITE")
+        databaseManager.saveRecipe(recipeID: Int64(self.recipeId))
+        databaseManager.fetchRecipes()
     }
     
     func setConstraints() {
