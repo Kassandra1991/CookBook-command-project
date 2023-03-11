@@ -190,6 +190,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             return MainTableViewCell()
         }
         cell.configure(with: (recipies[indexPath.row]))
+        let item = recipies[indexPath.row].image
+        let url = URL(string: item ?? "")
+        cell.icon.kf.setImage(with: url)
         cell.tintColor = .specialBlack
         cell.selectionStyle = .none
         return  cell
@@ -197,12 +200,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let сontroller = RecipeViewController()
-        сontroller.makeLabel.text = recipies?.results[indexPath.row].title
-        сontroller.recipeImageView.image = UIImage(named: recipies?.results[indexPath.row].image ?? "ramen")
+        let item = recipies?.results[indexPath.row]
+        сontroller.makeLabel.text = item?.title
+        сontroller.recipeId = item?.id ?? 0
+        let url = URL(string: item?.image ?? "")
+        сontroller.recipeImageView.kf.setImage(with: url)
         present(сontroller, animated: true, completion: nil)
     }
 }
-
 
 extension MainViewController: NetworkManagerDelegate {
     func RecipesDidRecive(_ dataFromApi: RecipeData) {
