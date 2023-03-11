@@ -5,6 +5,7 @@
 //  Created by Николай Игнатов on 02.03.2023.
 //
 
+import Kingfisher
 import UIKit
 
 final class DishTableViewCell: UITableViewCell {
@@ -32,6 +33,12 @@ final class DishTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
         setConstraints()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        dishImage.kf.cancelDownloadTask()
+        dishImage.image = nil
     }
     
     required init?(coder: NSCoder) {

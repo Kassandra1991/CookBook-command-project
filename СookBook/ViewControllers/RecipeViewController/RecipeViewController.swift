@@ -11,7 +11,6 @@ final class RecipeViewController: UIViewController {
     private let headerHeight: CGFloat = 44
     let networkManager = NetworkManager()
     var recipeId = 716429 // придет от Саши
-
     // MARK: - property
     let makeLabel = UILabel()
     let recipeImageView = UIImageView()
@@ -123,8 +122,8 @@ final class RecipeViewController: UIViewController {
     }
 
     @objc func instructionButtonAction() {
-//        let vc = ViewController()
-//        present(vc, animated: true)
+        let vc = StepViewController(id: recipeId)
+        present(vc, animated: true)
         print("Open Preparations Steps")
     }
 }

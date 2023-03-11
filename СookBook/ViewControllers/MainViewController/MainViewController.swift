@@ -3,7 +3,6 @@
 //  СookBook
 //
 //  Created by Aleksandra Asichka on 2023-02-27.
-
 import UIKit
 
 class MainViewController: UIViewController {
@@ -115,7 +114,7 @@ class MainViewController: UIViewController {
         setConstraints()
         networkManager.delegate = self
         networkManager.getRecipes(.random)
-        if let tabBarItem = self.tabBarController?.tabBar.items?[1] {   // Change the image of the active picture tabBar
+        if let tabBarItem = self.tabBarController?.tabBar.items?[0] {   // Change the image of the active picture tabBar
                             tabBarItem.selectedImage = UIImage(systemName: "house.fill")
                         }
     }

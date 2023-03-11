@@ -5,13 +5,12 @@
 //  Created by Alex on 26.02.2023.
 //
 
+import Kingfisher
 import UIKit
 
 final class CategoryViewController: UIViewController {
     
     private let networkManager = NetworkManager()
-    
-    private let categoryArray: [DishCategory] = []
     
     private var idArray: [Int] = []
     
@@ -77,17 +76,25 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dishes.count
+        return dishes.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DishTableViewCell", for: indexPath) as? DishTableViewCell else { return UITableViewCell() }
-        let data = dishes[indexPath.row]
-        // cell.dishImage.image = data.dishImage
-        cell.dishLabel.text = data.dishName
+        
+        let dish = dishes[indexPath.row]
+        
+        cell.dishLabel.text = dish.dishName
+        
+        
+        if let imageURL = URL(string: dish.dishImage ?? "") {
+            cell.dishImage.kf.setImage(with: imageURL)
+        }
+        
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         267
     }
@@ -97,20 +104,28 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
 extension CategoryViewController {
     func fetchData() {
         networkManager.fetchRecipes(category: currentCategoryName) { recipeIds, error in
-            if let id = recipeIds {
-                print(id)
-                
-//                for id in  self.idArray {
-//                    self.networkManager.searchRecipeById(by: id) { recipe in
-//                        let dish = Dish(dishName: recipe.title, dishImage: recipe.image)
-//                        self.dishes.append(dish)
-//                    }
-//                    print(self.dishes)
-//                }
+            if let ids = recipeIds {
+                self.idArray = ids
+                print(self.idArray)
+                var dishes: [Dish] = []
+                let group = DispatchGroup()
+                for id in self.idArray {
+                    group.enter()
+                    self.networkManager.searchRecipeById(by: id) { recipe in
+                        let dish = Dish(dishName: recipe.title, dishImage: recipe.image)
+                        dishes.append(dish)
+                        print(dishes)
+                        group.leave()
+                    }
+                }
+                group.notify(queue: DispatchQueue.main) {
+                    let filteredDishes = dishes.filter { $0.dishImage != nil }
+                    self.dishes = filteredDishes
+                    self.tableView.reloadData()
+                }
             } else {
                 print("error")
             }
         }
     }
 }
-

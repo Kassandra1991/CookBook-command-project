@@ -4,8 +4,8 @@
 //
 //  Created by Aleksandra Asichka on 2023-02-28.
 //
-
 import UIKit
+import Kingfisher
 
 class MainTableViewCell: UITableViewCell {
 
@@ -58,7 +58,6 @@ class MainTableViewCell: UITableViewCell {
     }()
     
 //    private let customAccessory = UICellAccessory.CustomViewConfiguration(customView: UIImageView(image: UIImage(systemName: "heart.fill")), placement: .trailing(displayed: .always))
-
     //MARK: - lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -98,7 +97,9 @@ class MainTableViewCell: UITableViewCell {
     func configureImage(with name: String) {
         icon.contentMode = .scaleAspectFill
         icon.clipsToBounds = true
-        icon.image = UIImage(named: "ramen")//name)
+        icon.rounded()
+        guard let url = URL(string: name) else { return }
+        icon.kf.setImage(with: url)
     }
 
     func configureTitle(with text: String?) {
