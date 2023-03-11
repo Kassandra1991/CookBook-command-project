@@ -11,22 +11,21 @@ class MainTableViewCell: UITableViewCell {
 
     // MARK: - constants
     enum Constants {
-//        static let descriptionImageViewSideSpacing: CGFloat = 29.0
-//        static let bookmarkImageViewSideSpacing: CGFloat = 37.0
-//        static let cellStackViewSideSpacing: CGFloat = 4.0
-//        static let cellStackViewLeftRightSpacing: CGFloat = 20.0
-//        static let bookmarkButtonSideSize: CGFloat = 24.0
-//        static let bookmarkButtonTopSpasing: CGFloat = 39.0
-//        static let bookmarkButtonTrailingSpasing: CGFloat = -20.0
-//        static let iconViewSideSpacing: CGFloat = 20.0
-//        static let descriptionStackViewWidth: CGFloat = 153.0
-//        static let numberOfLines: Int = 2
-//        static let widthIconImageView: CGFloat = 64.0
-//        static let bookmarkImageViewWidth: CGFloat = 24.0
-//        static let bookmarkImageViewHeight: CGFloat = 24.0
-//        static let descriptionStackViewSpacing: CGFloat = 8
-//        static let cellStackViewSpacing: CGFloat = 20
-//        static let paddingDescriptionStackView: CGFloat = 19
+        static let iconImage: String = "heart.fill"
+        static let iconImageViewWidth: CGFloat = 64.0
+        static let cellBorderSize: CGFloat = 1.0
+        static let heartButtonTopSpasing: CGFloat = 39.0
+        static let heartButtonTrailingSpasing: CGFloat = -20.0
+        static let iconViewSideSpacing: CGFloat = 20.0
+        static let descriptionTimeHeight: CGFloat = 18.0
+        static let descriptionTitleHeight: CGFloat = 40.0
+        static let descriptionViewWidth: CGFloat = 175.0
+        static let numberOfLines: Int = 0
+        static let heartImageViewWidth: CGFloat = 24.0
+        static let heartImageViewHeight: CGFloat = 24.0
+        static let elementsHorizontalSpacing: CGFloat = 20.0
+        static let topTimeSpasing: CGFloat = 8.0
+        static let topTitleSpasing: CGFloat = 19.0
     }
     
     //MARK: - property
@@ -51,13 +50,12 @@ class MainTableViewCell: UITableViewCell {
     
     private lazy var heartButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        button.setImage(UIImage(systemName: Constants.iconImage), for: .normal)
         button.tintColor = .specialBlack
         button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         return button
     }()
     
-//    private let customAccessory = UICellAccessory.CustomViewConfiguration(customView: UIImageView(image: UIImage(systemName: "heart.fill")), placement: .trailing(displayed: .always))
     //MARK: - lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -75,7 +73,8 @@ class MainTableViewCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(timeLabel)
         contentView.addSubview(heartButton)
-        contentView.backgroundColor = .specialGray
+        contentView.layer.borderColor = UIColor.specialGray.cgColor
+        contentView.layer.borderWidth = Constants.cellBorderSize
     }
     
     //MARK: - flow funcs
@@ -104,7 +103,7 @@ class MainTableViewCell: UITableViewCell {
 
     func configureTitle(with text: String?) {
         titleLabel.font = .poppinsBold14()
-        titleLabel.numberOfLines = 0
+        titleLabel.numberOfLines = Constants.numberOfLines
         titleLabel.text = text
     }
 
@@ -118,38 +117,38 @@ class MainTableViewCell: UITableViewCell {
     @objc private func favoriteButtonTapped(sender: UIButton) {
 //        item.isFavorite?.toggle()
 //        sender.tintColor = item.isFavorite! ? .specialPink : .specialBlack
-        sender.tintColor = .specialPink
+        sender.tintColor = .specialRed
         print("Added to FAVORITE")
     }
     
     func setConstraints() {
         icon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            icon.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            icon.widthAnchor.constraint(equalToConstant: 64),
+            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.iconViewSideSpacing),
+            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.iconViewSideSpacing),
+            icon.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.iconViewSideSpacing),
+            icon.widthAnchor.constraint(equalToConstant: Constants.iconImageViewWidth),
         ])
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 19),
-            titleLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 20),
-            titleLabel.widthAnchor.constraint(equalToConstant: 175),
-            titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 40)
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.topTitleSpasing),
+            titleLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: Constants.elementsHorizontalSpacing),
+            titleLabel.widthAnchor.constraint(equalToConstant: Constants.descriptionViewWidth),
+            titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.descriptionTitleHeight)
         ])
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            timeLabel.heightAnchor.constraint(equalToConstant: 18),
-            timeLabel.widthAnchor.constraint(equalToConstant: 175),
-            timeLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 20),
+            timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Constants.topTimeSpasing),
+            timeLabel.heightAnchor.constraint(equalToConstant: Constants.descriptionTimeHeight),
+            timeLabel.widthAnchor.constraint(equalToConstant: Constants.descriptionViewWidth),
+            timeLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: Constants.elementsHorizontalSpacing),
         ])
         heartButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            heartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            heartButton.widthAnchor.constraint(equalToConstant: 24),
-            heartButton.heightAnchor.constraint(equalToConstant: 24),
-            heartButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 39)
+            heartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.heartButtonTrailingSpasing),
+            heartButton.widthAnchor.constraint(equalToConstant: Constants.heartImageViewWidth),
+            heartButton.heightAnchor.constraint(equalToConstant: Constants.heartImageViewHeight),
+            heartButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.heartButtonTopSpasing)
             ])
     }
 }
