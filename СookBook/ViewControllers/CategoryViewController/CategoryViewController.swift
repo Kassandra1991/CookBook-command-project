@@ -9,15 +9,19 @@ import UIKit
 
 final class CategoryViewController: UIViewController {
     
+    private let networkManager = NetworkManager()
+    
     private let categoryArray: [DishCategory] = []
     
-    private let dishes: [Dish] = [Dish(dishName: "Суп 1", dishImage: UIImage(systemName: "fork.knife")!), Dish(dishName: "Суп 2", dishImage: UIImage(systemName: "fork.knife.circle")!), Dish(dishName: "Суп 3", dishImage: UIImage(systemName: "fork.knife.circle.fill")!)]
+    private var idArray: [Int] = []
     
-    var currentCategoryName = "Супы"
+    private var dishes: [Dish] = []
     
-    private lazy var  categoryNameLabel: UILabel = {
+    var currentCategoryName: String
+    
+    private lazy var categoryNameLabel: UILabel = {
         let label = UILabel()
-        label.text = currentCategoryName
+        label.text = currentCategoryName.capitalized
         label.textColor = .black
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,6 +45,16 @@ final class CategoryViewController: UIViewController {
         tableView.register(DishTableViewCell.self, forCellReuseIdentifier: "DishTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
+        fetchData()
+    }
+    
+    init(categoryName: String) {
+        self.currentCategoryName = categoryName
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setupConstraints() {
@@ -70,7 +84,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DishTableViewCell", for: indexPath) as? DishTableViewCell else { return UITableViewCell() }
         let data = dishes[indexPath.row]
-        cell.dishImage.image = data.dishImage
+        // cell.dishImage.image = data.dishImage
         cell.dishLabel.text = data.dishName
         return cell
     }
@@ -78,3 +92,25 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         267
     }
 }
+
+
+extension CategoryViewController {
+    func fetchData() {
+        networkManager.fetchRecipes(category: currentCategoryName) { recipeIds, error in
+            if let id = recipeIds {
+                print(id)
+                
+//                for id in  self.idArray {
+//                    self.networkManager.searchRecipeById(by: id) { recipe in
+//                        let dish = Dish(dishName: recipe.title, dishImage: recipe.image)
+//                        self.dishes.append(dish)
+//                    }
+//                    print(self.dishes)
+//                }
+            } else {
+                print("error")
+            }
+        }
+    }
+}
+
