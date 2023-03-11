@@ -96,14 +96,6 @@ class MainViewController: UIViewController {
     
     private var recipies: RecipeData?
     
-    private let items: [Item] = [
-    Item(id: 0, title: "Papper ramen", category: "Noodle", image: "ramen", bookmark: "bookmark", time: 10, isFavorite: false),
-    Item(id: 1, title: "Sweet souse noodle", category: "Lunch", image: "ramen2", bookmark: "bookmark", time: 15, isFavorite: false),
-    Item(id: 2, title: "Chicken soup", category: "Noodle", image: "ramen3", bookmark: "bookmark", time: 19, isFavorite: false),
-    Item(id: 3, title: "Sweet cqke with jam", category: "Desert", image: "ramen2", bookmark: "bookmark", time: 35, isFavorite: false),
-    Item(id: 4, title: "Sweet soupe", category: "Lunch", image: "ramen2", bookmark: "bookmark", time: 25, isFavorite: false),
-    ]
-    
     private lazy var tableView = UITableView()
     
     // MARK: - life cycle funcs
@@ -225,7 +217,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MainTableViewCell
-        cell.configure(with: recipies!.results[indexPath.row])
+        guard let recipies = recipies?.results else {
+            return MainTableViewCell()
+        }
+        cell.configure(with: (recipies[indexPath.row]))
         cell.tintColor = .specialBlack
         cell.selectionStyle = .none
         return  cell
@@ -236,7 +231,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         сontroller.makeLabel.text = recipies?.results[indexPath.row].title
         сontroller.recipeImageView.image = UIImage(named: recipies?.results[indexPath.row].image ?? "ramen")
         present(сontroller, animated: true, completion: nil)
-        print("Cell at \(indexPath.row) row tapped!")
     }
 }
 
@@ -244,7 +238,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 extension MainViewController: NetworkManagerDelegate {
     func RecipesDidRecive(_ dataFromApi: RecipeData) {
         recipies = dataFromApi
-        print(recipies?.results.first?.image)
         DispatchQueue.main.async {
             self.tableView.reloadData()
 
