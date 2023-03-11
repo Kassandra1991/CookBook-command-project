@@ -71,6 +71,8 @@ final class CategoryViewController: UIViewController {
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recipeVC = RecipeViewController()
+        present(recipeVC, animated: true)
         //     let detailViewController = DeteilViewController()
         //     navigationController?.pushViewController(detailViewController, animated: true)
     }
