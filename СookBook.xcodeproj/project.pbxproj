@@ -36,16 +36,11 @@
 		FA7F078729B114B700E69D08 /* IngredientHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7F078329B114B700E69D08 /* IngredientHeaderView.xib */; };
 		FA7F078829B114B700E69D08 /* IngredientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7F078429B114B700E69D08 /* IngredientTableViewCell.xib */; };
 		FA7F07D329B1D98000E69D08 /* DishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F07D229B1D98000E69D08 /* DishTableViewCell.swift */; };
-		FA7F07D529B1D9CC00E69D08 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F07D429B1D9CC00E69D08 /* CategoriesView.swift */; };
-		FA7F07D829B1DAC100E69D08 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F07D729B1DAC100E69D08 /* CategoriesTableViewCell.swift */; };
-		FA7F07E329B1DC4300E69D08 /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F07E129B1DC4200E69D08 /* TrendsView.swift */; };
-		FA7F07E429B1DC4300E69D08 /* TrendsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F07E229B1DC4200E69D08 /* TrendsViewCell.swift */; };
 		FA8DA91D29BBA82C001668F0 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FA8DA91C29BBA82C001668F0 /* Kingfisher */; };
 		FAA493DB29B7D071006B55EE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA493DA29B7D071006B55EE /* NetworkManager.swift */; };
 		FAA493DF29B7D0DD006B55EE /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA493DE29B7D0DD006B55EE /* Model.swift */; };
 		FAA493E129B7D0F9006B55EE /* SearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA493E029B7D0F9006B55EE /* SearchData.swift */; };
 		FAA493E329B7D101006B55EE /* RecipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA493E229B7D101006B55EE /* RecipeData.swift */; };
-		FAA493E529B7D164006B55EE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA493E429B7D164006B55EE /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,15 +76,10 @@
 		FA7F078929B1171300E69D08 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA7F07C929B1D80800E69D08 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		FA7F07D229B1D98000E69D08 /* DishTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishTableViewCell.swift; sourceTree = "<group>"; };
-		FA7F07D429B1D9CC00E69D08 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
-		FA7F07D729B1DAC100E69D08 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
-		FA7F07E129B1DC4200E69D08 /* TrendsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
-		FA7F07E229B1DC4200E69D08 /* TrendsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendsViewCell.swift; sourceTree = "<group>"; };
 		FAA493DA29B7D071006B55EE /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		FAA493DE29B7D0DD006B55EE /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		FAA493E029B7D0F9006B55EE /* SearchData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchData.swift; sourceTree = "<group>"; };
 		FAA493E229B7D101006B55EE /* RecipeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeData.swift; sourceTree = "<group>"; };
-		FAA493E429B7D164006B55EE /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,7 +229,6 @@
 			isa = PBXGroup;
 			children = (
 				18A9EA2329B9354500114CAD /* Core Data */,
-				FAA493E429B7D164006B55EE /* Item.swift */,
 				FAA493E229B7D101006B55EE /* RecipeData.swift */,
 				FAA493DE29B7D0DD006B55EE /* Model.swift */,
 				FA2401B429BC36A0008FB19C /* RecipeInstruction.swift */,
@@ -276,10 +265,6 @@
 			isa = PBXGroup;
 			children = (
 				FA7F07C929B1D80800E69D08 /* MainTableViewCell.swift */,
-				FA7F07D429B1D9CC00E69D08 /* CategoriesView.swift */,
-				FA7F07D729B1DAC100E69D08 /* CategoriesTableViewCell.swift */,
-				FA7F07E129B1DC4200E69D08 /* TrendsView.swift */,
-				FA7F07E229B1DC4200E69D08 /* TrendsViewCell.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -417,21 +402,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA7F07D329B1D98000E69D08 /* DishTableViewCell.swift in Sources */,
-				FA7F07E429B1DC4300E69D08 /* TrendsViewCell.swift in Sources */,
-				FA7F07E329B1DC4300E69D08 /* TrendsView.swift in Sources */,
 				18448AB829B3C19700F7EC3D /* UIFont+Extension.swift in Sources */,
 				18A9EA2629B9355500114CAD /* CookBook.xcdatamodeld in Sources */,
-				FA7F07D529B1D9CC00E69D08 /* CategoriesView.swift in Sources */,
 				8E25CF5629B376CC00D55E2B /* CategoryListViewController.swift in Sources */,
 				FA68842729ABDFE500F14554 /* CategoryViewController.swift in Sources */,
 				FA50294329B1DDD500E7D048 /* MainTableViewCell.swift in Sources */,
 				032FB57029ACDDA100608E11 /* MainViewController.swift in Sources */,
 				18A9EA2929B9389F00114CAD /* Recipe+CoreDataClass.swift in Sources */,
-				FAA493E529B7D164006B55EE /* Item.swift in Sources */,
 				FAA493E329B7D101006B55EE /* RecipeData.swift in Sources */,
 				8E25CF5A29B3788E00D55E2B /* CategoryListTableViewCell.swift in Sources */,
 				FA2401BA29BC3B3B008FB19C /* StepViewController.swift in Sources */,
-				FA7F07D829B1DAC100E69D08 /* CategoriesTableViewCell.swift in Sources */,
 				FA7F077F29B114A400E69D08 /* FavoritesTableViewCell.swift in Sources */,
 				FA7F076229B1137900E69D08 /* AppDelegate.swift in Sources */,
 				FA7F078629B114B700E69D08 /* IngredientsTableViewCell.swift in Sources */,
