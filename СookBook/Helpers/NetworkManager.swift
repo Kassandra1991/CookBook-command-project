@@ -15,14 +15,23 @@ protocol NetworkManagerDelegate {
 
 //MARK: Types of request
 enum RequestType {
-    case random, categories
+    case random, categories, search(String)
 }
 
 
 //MARK: - Data parser by URL
 struct NetworkManager {
+
+
+    //77ac3fc6f57d4079889bc3d5c4fd0626 Luiza
+    //79ea5edce99f4689acc8b4ec479d1ea3
+    //a36d48d5bdf14263b233b3dd3ce16b4a Dmitriy Babichev
+    //5920e7d8591b4559b9e6204dadb1647c
+    private let apiKey = "7def0a670834447ebd33f9af9c63a677"
+
     //bb2cd10a7ba84212a5bc0dff13eec2b5
     private let apiKey = "b44942a6581c407c86576715b0067438"
+
     private let urlApi = "https://api.spoonacular.com"
 
     var delegate: NetworkManagerDelegate?
@@ -45,7 +54,7 @@ struct NetworkManager {
     }
 
     //MARK: - searchRecipe
-    func searchRecipe(by title: String, results: @escaping ([SearchData]) -> Void) {
+    func searchRecipe(by title: String, results: @escaping (RecipeData) -> Void) {
         let findTitle = title.replacingOccurrences(of: " ", with: "+")
         let urlString = "https://api.spoonacular.com/recipes/autocomplete?apiKey=\(apiKey)&query=\(findTitle)&number=10"
         guard let url = URL(string: urlString) else { return }
@@ -53,7 +62,7 @@ struct NetworkManager {
             guard error == nil else { return }
             guard let data = data else { return }
             do {
-                let data = try JSONDecoder().decode([SearchData].self, from: data)
+                let data = try JSONDecoder().decode(RecipeData.self, from: data)
                 results(data)
             } catch {
                 print(error)
@@ -136,6 +145,13 @@ struct NetworkManager {
                 let type = category.replacingOccurrences(of: " ", with: "+")
                 url = "https://api.spoonacular.com/recipes/complexSearch?number=10&instructionsRequired=true&addRecipeInformation=true&fillIngredients=true&apiKey=\(apiKey)&type=\(type)"
             }
+        case .search(let query):
+//            let query = "pasta with mush"
+            url = "https://api.spoonacular.com/recipes/complexSearch?number=10&instructionsRequired=true&addRecipeInformation=true&fillIngredients=true&apiKey=\(apiKey)&query=\(query)"
+            //API Key: a2ee131cb54a4868bad1694c88f60712
+            /*
+             https://api.spoonacular.com/recipes/complexSearch?number=10&instructionsRequired=true&addRecipeInformation=true&fillIngredients=true&apiKey=a2ee131cb54a4868bad1694c88f60712&query=pasta%20with%20mush
+             */
         }
         return url
     }
