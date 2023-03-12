@@ -148,11 +148,11 @@ class MainViewController: UIViewController {
     }
     
     @objc private func sendSelectFavorite(_ notification: NSNotification) {
-        guard var indexPath = notification.userInfo!["indexPath"] as? IndexPath else {return}
+        guard let indexPath = notification.userInfo!["indexPath"] as? IndexPath else {return}
         print("sendSelectFavorite \(indexPath.row)")
     }
     @objc private func sendDeSelectFavorite(_ notification: NSNotification) {
-        guard var indexPath = notification.userInfo!["indexPath"] as? IndexPath else {return}
+        guard let indexPath = notification.userInfo!["indexPath"] as? IndexPath else {return}
         print("sendDeSelectFavorite \(indexPath.row)")
     }
 }
