@@ -11,11 +11,11 @@ import Kingfisher
 final class FavoritesViewController: UIViewController {
 
     // MARK: - properties
-    var databaseManager = DatabaseManager()
     let networkManager = NetworkManager()
 
     private let tableView = UITableView()
     private var cellObjects = [RecipeData.RecipeDescription]()
+    var index = 0
 
     // MARK: - life cycle funcs
     override func viewDidLoad() {
@@ -38,8 +38,8 @@ final class FavoritesViewController: UIViewController {
     // MARK: - flow funcs
     private func getRecipes() {
         // TODO: check if recipe id already exist in the collection before querying
-        if !databaseManager.savedRecipes.isEmpty {
-            for recipe in databaseManager.savedRecipes {
+        if !DatabaseManager.savedRecipes.isEmpty {
+            for recipe in DatabaseManager.savedRecipes {
                 networkManager.searchRecipeById(by: Int(recipe.recipeID)) { [self] data in
                         cellObjects.append(data)
                         updateData()
@@ -51,7 +51,7 @@ final class FavoritesViewController: UIViewController {
     }
 
     private func updateData() {
-        databaseManager.fetchRecipes()
+        DatabaseManager.fetchRecipes()
 
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -131,7 +131,18 @@ extension FavoritesViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [self] (_, _, completionHandler) in
-            databaseManager.deleteRecipe(databaseManager.savedRecipes[indexPath.row])
+            
+//            let id = cellObjects[indexPath.row].id
+//            
+//            
+//            
+//            for (index, value) in DatabaseManager.savedRecipes.enumerated() {
+//                if Int64(id) == DatabaseManager.savedRecipes[index].re {
+//                    print (index)
+//                }
+//            }
+            
+            DatabaseManager.deleteRecipe(DatabaseManager.savedRecipes[indexPath.row])
             cellObjects.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             updateData()

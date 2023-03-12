@@ -29,8 +29,6 @@ class MainTableViewCell: UITableViewCell {
     }
     
     //MARK: - property
-
-    var databaseManager = DatabaseManager()
     var recipeId: Int!
     var item: RecipeData.RecipeDescription!
     var indexPath = IndexPath()
@@ -73,6 +71,8 @@ class MainTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     private func setupViews() {
         contentView.addSubview(icon)
         contentView.addSubview(titleLabel)
@@ -93,11 +93,19 @@ class MainTableViewCell: UITableViewCell {
         configureImage(with: imageName)
         configureTitle(with: item.title)
         configureTime(with: item.readyInMinutes)
-        //configureHeartButton(status: status)
+        configureHeartButton()
     }
-//    func configureHeartButton(status: Bool) {
-//        bookmarkButton.tintColor = status ? .specialPink : .specialBlack
-//    }
+    func configureHeartButton() {
+        if isSelectedFavorite {
+            heartButton.tintColor = .specialRed
+            heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            DatabaseManager.saveRecipe(recipeID: Int64(self.recipeId))
+            DatabaseManager.fetchRecipes()
+        } else {
+            heartButton.tintColor = .black
+            heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+    }
     
     func configureImage(with name: String) {
         icon.contentMode = .scaleAspectFill
@@ -126,15 +134,11 @@ class MainTableViewCell: UITableViewCell {
         if isSelectedFavorite {
             sender.tintColor = .specialRed
             heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            databaseManager.saveRecipe(recipeID: Int64(self.recipeId))
-            databaseManager.fetchRecipes()
-            let message = ["indexPath" : indexPath]
-            NotificationCenter.default.post(name: NSNotification.Name("didSelectFavorite"), object: nil, userInfo: message)
+            DatabaseManager.saveRecipe(recipeID: Int64(self.recipeId))
+            DatabaseManager.fetchRecipes()
         } else {
             sender.tintColor = .black
             heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
-            let message = ["indexPath" : indexPath]
-            NotificationCenter.default.post(name: NSNotification.Name("didDeSelectFavorite"), object: nil, userInfo: message)
         }
     }
     
@@ -173,5 +177,6 @@ class MainTableViewCell: UITableViewCell {
             super.prepareForReuse()
             icon.kf.cancelDownloadTask()
             icon.image = nil
+            isSelectedFavorite = false
         }
 }

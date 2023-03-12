@@ -10,7 +10,7 @@ import UIKit
 
 final class DishTableViewCell: UITableViewCell {
     
-    var databaseManager = DatabaseManager()
+//    var databaseManager = DatabaseManager()
     
     var recipeId = 0
     var isSelectedFavorite = false
@@ -54,6 +54,7 @@ final class DishTableViewCell: UITableViewCell {
         super.prepareForReuse()
         dishImage.kf.cancelDownloadTask()
         dishImage.image = nil
+        isSelectedFavorite = false
     }
     
     required init?(coder: NSCoder) {
@@ -73,10 +74,22 @@ final class DishTableViewCell: UITableViewCell {
         if isSelectedFavorite {
             sender.tintColor = .specialRed
             heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            databaseManager.saveRecipe(recipeID: Int64(self.recipeId))
-            databaseManager.fetchRecipes()
+            DatabaseManager.saveRecipe(recipeID: Int64(self.recipeId))
+            DatabaseManager.fetchRecipes()
         } else {
             sender.tintColor = .black
+            heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+    }
+    
+    func configureHeartButton() {
+        if isSelectedFavorite {
+            heartButton.tintColor = .specialRed
+            heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            DatabaseManager.saveRecipe(recipeID: Int64(self.recipeId))
+            DatabaseManager.fetchRecipes()
+        } else {
+            heartButton.tintColor = .black
             heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
         }
     }

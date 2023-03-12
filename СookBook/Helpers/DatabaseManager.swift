@@ -9,10 +9,10 @@ import UIKit
 
 struct DatabaseManager {
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var savedRecipes = [Recipe]()
+    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    static var savedRecipes = [Recipe]()
 
-    func saveRecipe(recipeID: Int64) {
+    static func saveRecipe(recipeID: Int64) {
         if !savedRecipes.contains(where: { $0.recipeID == recipeID }) {
             let newRecipe = Recipe(context: self.context)
             newRecipe.recipeID = recipeID
@@ -28,7 +28,7 @@ struct DatabaseManager {
         }
     }
 
-    func deleteRecipe(_ item: Recipe) {
+    static func deleteRecipe(_ item: Recipe) {
         context.delete(item)
 
         do {
@@ -39,7 +39,7 @@ struct DatabaseManager {
         }
     }
 
-    mutating func fetchRecipes() {
+    static  func fetchRecipes() {
         do {
             savedRecipes = try context.fetch(Recipe.fetchRequest())
         }
