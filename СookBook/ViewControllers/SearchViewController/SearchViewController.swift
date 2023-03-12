@@ -66,6 +66,7 @@ class SearchViewController: UIViewController {
         setConstraints()
         networkManager.delegate = self
         networkManager.getRecipes(.random)
+        searchTextField.delegate = self
         if let tabBarItem = self.tabBarController?.tabBar.items?[3] {   // Change the image of the active picture tabBar
             tabBarItem.selectedImage = UIImage(systemName: Constants.tabBarImage)
                         }
@@ -97,6 +98,14 @@ class SearchViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.separatorColor = .clear
+    }
+    
+    @objc func searchTapped(_ sender: Any) {
+        searchTextField.endEditing(true)
+        guard let city = searchTextField.text else {
+            return
+        }
+        print(city)
     }
     
     private func setConstraints() {
@@ -181,9 +190,20 @@ extension SearchViewController: NetworkManagerDelegate {
     func didFailWithError(error: Error) {
         print("Error: \(error)")
     }
-    
-    
+}
+
+extension SearchViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let query = searchTextField.text else {
+            return
+        }
+        networkManager.getRecipes(.search(query))
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.endEditing(true)
+        return true
+    }
+}
 
 
