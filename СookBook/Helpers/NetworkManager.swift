@@ -27,10 +27,7 @@ struct NetworkManager {
     //79ea5edce99f4689acc8b4ec479d1ea3
     //a36d48d5bdf14263b233b3dd3ce16b4a Dmitriy Babichev
     //5920e7d8591b4559b9e6204dadb1647c
-    private let apiKey = "7def0a670834447ebd33f9af9c63a677"
-
-    //bb2cd10a7ba84212a5bc0dff13eec2b5
-    private let apiKey = "b44942a6581c407c86576715b0067438"
+    private let apiKey = "f40ffb44d72040d7801e3480f5afcf23"
 
     private let urlApi = "https://api.spoonacular.com"
 

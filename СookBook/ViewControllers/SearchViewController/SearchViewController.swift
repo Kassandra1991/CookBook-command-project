@@ -65,7 +65,6 @@ class SearchViewController: UIViewController {
         configure()
         setConstraints()
         networkManager.delegate = self
-        networkManager.getRecipes(.random)
         searchTextField.delegate = self
         if let tabBarItem = self.tabBarController?.tabBar.items?[3] {   // Change the image of the active picture tabBar
             tabBarItem.selectedImage = UIImage(systemName: Constants.tabBarImage)
