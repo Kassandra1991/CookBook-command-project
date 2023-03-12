@@ -10,6 +10,10 @@ import UIKit
 
 final class DishTableViewCell: UITableViewCell {
     
+    var databaseManager = DatabaseManager()
+    
+    var recipeId = 0
+    
     let dishLabel: UILabel = {
         let title = UILabel()
         title.textColor = .white
@@ -29,11 +33,20 @@ final class DishTableViewCell: UITableViewCell {
         return image
     }()
     
+    private lazy var heartButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        button.tintColor = .specialBlack
+        button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
-        setConstraints()
-    }
+          super.init(style: style, reuseIdentifier: reuseIdentifier)
+          setupViews()
+          setConstraints()
+      }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -46,11 +59,17 @@ final class DishTableViewCell: UITableViewCell {
     }
     
     private func setupViews() {
-        backgroundColor = .white
+        backgroundColor = .black
         selectionStyle = .none
         addSubview(dishImage)
         addSubview(dishLabel)
-        
+        contentView.addSubview(heartButton)
+    }
+    
+    @objc private func favoriteButtonTapped(sender: UIButton) {
+        sender.tintColor = .specialRed
+        databaseManager.saveRecipe(recipeID: Int64(self.recipeId))
+        databaseManager.fetchRecipes()
     }
     
     private func setConstraints(){
@@ -62,7 +81,14 @@ final class DishTableViewCell: UITableViewCell {
             dishImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             dishImage.trailingAnchor.constraint(equalTo: trailingAnchor),
             dishImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            
+            heartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            heartButton.widthAnchor.constraint(equalToConstant: 24),
+            heartButton.heightAnchor.constraint(equalToConstant: 24),
+            heartButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
             bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            
         ])
     }
 }
