@@ -72,9 +72,23 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recipeVC = RecipeViewController()
+        let currentID = idArray[indexPath.row]
+        let currentDish = dishes[indexPath.row]
+        recipeVC.recipeId = currentID
+        recipeVC.makeLabel.text = currentDish.dishName
+        
+        if let imageURL = URL(string: currentDish.dishImage ?? "") {
+            let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+                if let imageData = data, let image = UIImage(data: imageData) {
+                    DispatchQueue.main.async {
+                        recipeVC.recipeImageView.image = image
+                    }
+                }
+            }
+            task.resume()
+        }
+        
         present(recipeVC, animated: true)
-        //     let detailViewController = DeteilViewController()
-        //     navigationController?.pushViewController(detailViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -86,6 +100,10 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DishTableViewCell", for: indexPath) as? DishTableViewCell else { return UITableViewCell() }
         
         let dish = dishes[indexPath.row]
+        
+        let currentID = idArray[indexPath.row]
+        
+        cell.recipeId = currentID
         
         cell.dishLabel.text = dish.dishName
         
