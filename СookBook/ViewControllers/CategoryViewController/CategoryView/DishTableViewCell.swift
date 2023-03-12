@@ -13,12 +13,13 @@ final class DishTableViewCell: UITableViewCell {
     var databaseManager = DatabaseManager()
     
     var recipeId = 0
+    var isSelectedFavorite = false
     
     let dishLabel: UILabel = {
         let title = UILabel()
         title.textColor = .white
         title.numberOfLines = 2
-        title.font = .systemFont(ofSize: 16, weight: .bold)
+        title.font = .systemFont(ofSize: 24, weight: .bold)
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -35,7 +36,8 @@ final class DishTableViewCell: UITableViewCell {
     
     private lazy var heartButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.setImage(UIImage(systemName: "heart.fill"), for: .selected)
         button.tintColor = .specialBlack
         button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +61,6 @@ final class DishTableViewCell: UITableViewCell {
     }
     
     private func setupViews() {
-        backgroundColor = .black
         selectionStyle = .none
         addSubview(dishImage)
         addSubview(dishLabel)
@@ -67,9 +68,17 @@ final class DishTableViewCell: UITableViewCell {
     }
     
     @objc private func favoriteButtonTapped(sender: UIButton) {
-        sender.tintColor = .specialRed
-        databaseManager.saveRecipe(recipeID: Int64(self.recipeId))
-        databaseManager.fetchRecipes()
+        isSelectedFavorite = !isSelectedFavorite
+        
+        if isSelectedFavorite {
+            sender.tintColor = .specialRed
+            heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            databaseManager.saveRecipe(recipeID: Int64(self.recipeId))
+            databaseManager.fetchRecipes()
+        } else {
+            sender.tintColor = .black
+            heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
     }
     
     private func setConstraints(){
@@ -82,10 +91,10 @@ final class DishTableViewCell: UITableViewCell {
             dishImage.trailingAnchor.constraint(equalTo: trailingAnchor),
             dishImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             
+            heartButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
             heartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            heartButton.widthAnchor.constraint(equalToConstant: 24),
-            heartButton.heightAnchor.constraint(equalToConstant: 24),
-            heartButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            heartButton.widthAnchor.constraint(equalToConstant: 44),
+            heartButton.heightAnchor.constraint(equalToConstant: 44),
             
             bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             

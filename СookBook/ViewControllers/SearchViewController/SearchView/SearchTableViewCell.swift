@@ -1,17 +1,18 @@
 //
-//  MainTableViewCell.swift
+//  SearchTableViewCell.swift
 //  СookBook
 //
-//  Created by Aleksandra Asichka on 2023-02-28.
+//  Created by Admin on 11.03.23.
 //
+
 import UIKit
 import Kingfisher
 
-class MainTableViewCell: UITableViewCell {
+class SearchTableViewCell: UITableViewCell {
 
     // MARK: - constants
     enum Constants {
-        static let iconImage: String = "heart"
+        static let iconImage: String = "heart.fill"
         static let iconImageViewWidth: CGFloat = 64.0
         static let cellBorderSize: CGFloat = 1.0
         static let heartButtonTopSpasing: CGFloat = 39.0
@@ -21,19 +22,16 @@ class MainTableViewCell: UITableViewCell {
         static let descriptionTitleHeight: CGFloat = 40.0
         static let descriptionViewWidth: CGFloat = 175.0
         static let numberOfLines: Int = 0
-        static let heartImageViewWidth: CGFloat = 44.0
-        static let heartImageViewHeight: CGFloat = 44.0
+        static let heartImageViewWidth: CGFloat = 24.0
+        static let heartImageViewHeight: CGFloat = 24.0
         static let elementsHorizontalSpacing: CGFloat = 20.0
         static let topTimeSpasing: CGFloat = 8.0
         static let topTitleSpasing: CGFloat = 19.0
     }
     
     //MARK: - property
-
-    var databaseManager = DatabaseManager()
-    var recipeId: Int!
+    
     var item: RecipeData.RecipeDescription!
-    var isSelectedFavorite = false
     
     var icon: UIImageView = {
         let imageView = UIImageView()
@@ -81,28 +79,22 @@ class MainTableViewCell: UITableViewCell {
     }
     
     //MARK: - flow funcs
-    func configure(with item: RecipeData.RecipeDescription) {
-        self.recipeId = item.id
+    func configure(with item: RecipeData.RecipeDescription){
         self.item = item
         guard let imageName = item.image
-              //let status = item.isFavorite
         else { return }
 
         configureImage(with: imageName)
         configureTitle(with: item.title)
         configureTime(with: item.readyInMinutes)
-        //configureHeartButton(status: status)
     }
-//    func configureHeartButton(status: Bool) {
-//        bookmarkButton.tintColor = status ? .specialPink : .specialBlack
-//    }
+
     
     func configureImage(with name: String) {
         icon.contentMode = .scaleAspectFill
         icon.clipsToBounds = true
         icon.rounded()
-//        guard let url = URL(string: name) else { return }
-//        icon.kf.setImage(with: url)
+
     }
 
     func configureTitle(with text: String?) {
@@ -119,17 +111,10 @@ class MainTableViewCell: UITableViewCell {
     }
     
     @objc private func favoriteButtonTapped(sender: UIButton) {
-        isSelectedFavorite = !isSelectedFavorite
-
-        if isSelectedFavorite {
-            sender.tintColor = .specialRed
-            heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            databaseManager.saveRecipe(recipeID: Int64(self.recipeId))
-            databaseManager.fetchRecipes()
-        } else {
-            sender.tintColor = .black
-            heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        }
+//        item.isFavorite?.toggle()
+//        sender.tintColor = item.isFavorite! ? .specialPink : .specialBlack
+        sender.tintColor = .specialRed
+        print("Added to FAVORITE")
     }
     
     func setConstraints() {
@@ -156,10 +141,10 @@ class MainTableViewCell: UITableViewCell {
         ])
         heartButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            heartButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.heartButtonTopSpasing),
             heartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.heartButtonTrailingSpasing),
             heartButton.widthAnchor.constraint(equalToConstant: Constants.heartImageViewWidth),
-            heartButton.heightAnchor.constraint(equalToConstant: Constants.heartImageViewHeight)
+            heartButton.heightAnchor.constraint(equalToConstant: Constants.heartImageViewHeight),
+            heartButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.heartButtonTopSpasing)
             ])
     }
 
