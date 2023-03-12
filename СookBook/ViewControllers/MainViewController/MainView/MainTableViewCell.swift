@@ -33,6 +33,8 @@ class MainTableViewCell: UITableViewCell {
     var databaseManager = DatabaseManager()
     var recipeId: Int!
     var item: RecipeData.RecipeDescription!
+    var indexPath = IndexPath()
+    var isFavorite = false
     var isSelectedFavorite = false
     
     var icon: UIImageView = {
@@ -126,9 +128,13 @@ class MainTableViewCell: UITableViewCell {
             heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             databaseManager.saveRecipe(recipeID: Int64(self.recipeId))
             databaseManager.fetchRecipes()
+            let message = ["indexPath" : indexPath]
+            NotificationCenter.default.post(name: NSNotification.Name("didSelectFavorite"), object: nil, userInfo: message)
         } else {
             sender.tintColor = .black
             heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            let message = ["indexPath" : indexPath]
+            NotificationCenter.default.post(name: NSNotification.Name("didDeSelectFavorite"), object: nil, userInfo: message)
         }
     }
     

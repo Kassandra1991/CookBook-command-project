@@ -23,7 +23,7 @@ extension RecipeData {
         let extendedIngredients: [Ingredients]
         let dishTypes: [String]?
         let nutrition: NutritionInfo?
-        var isFavorite = false
+//        var isFavorite = false
     }
 
     //MARK: - extendedIngredients

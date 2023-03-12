@@ -75,6 +75,9 @@ class MainViewController: UIViewController {
         if let tabBarItem = self.tabBarController?.tabBar.items?[0] {   // Change the image of the active picture tabBar
             tabBarItem.selectedImage = UIImage(systemName: Constants.tabBarImage)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(sendSelectFavorite), name: NSNotification.Name("didSelectFavorite"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sendDeSelectFavorite), name: NSNotification.Name("didDeSelectFavorite"), object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -143,6 +146,15 @@ class MainViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
         ])
     }
+    
+    @objc private func sendSelectFavorite(_ notification: NSNotification) {
+        guard var indexPath = notification.userInfo!["indexPath"] as? IndexPath else {return}
+        print("sendSelectFavorite \(indexPath.row)")
+    }
+    @objc private func sendDeSelectFavorite(_ notification: NSNotification) {
+        guard var indexPath = notification.userInfo!["indexPath"] as? IndexPath else {return}
+        print("sendDeSelectFavorite \(indexPath.row)")
+    }
 }
 
 // MARK: - Delegate
@@ -165,6 +177,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             return MainTableViewCell()
         }
         cell.configure(with: (recipies[indexPath.row]))
+        cell.indexPath = indexPath
         let item = recipies[indexPath.row].image
         let url = URL(string: item ?? "")
         cell.icon.kf.setImage(with: url)
