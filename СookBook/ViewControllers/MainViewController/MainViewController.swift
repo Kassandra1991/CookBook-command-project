@@ -29,6 +29,9 @@ class MainViewController: UIViewController {
     // MARK: - property
     
     var networkManager = NetworkManager()
+    private var recipies: RecipeData?
+    
+    private lazy var tableView = UITableView()
     
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -60,9 +63,7 @@ class MainViewController: UIViewController {
         return label
        }()
     
-    private var recipies: RecipeData?
-    
-    private lazy var tableView = UITableView()
+
     
     // MARK: - life cycle funcs
     override func viewDidLoad() {
@@ -75,9 +76,13 @@ class MainViewController: UIViewController {
         if let tabBarItem = self.tabBarController?.tabBar.items?[0] {   // Change the image of the active picture tabBar
             tabBarItem.selectedImage = UIImage(systemName: Constants.tabBarImage)
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(sendSelectFavorite), name: NSNotification.Name("didSelectFavorite"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(sendDeSelectFavorite), name: NSNotification.Name("didDeSelectFavorite"), object: nil)
+ 
+        updateData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -148,12 +153,19 @@ class MainViewController: UIViewController {
     }
     
     @objc private func sendSelectFavorite(_ notification: NSNotification) {
-        guard let indexPath = notification.userInfo!["indexPath"] as? IndexPath else {return}
-        print("sendSelectFavorite \(indexPath.row)")
+//        guard let indexPath = notification.userInfo!["indexPath"] as? IndexPath else {return}
+//        print("sendSelectFavorite \(indexPath.row)")
     }
     @objc private func sendDeSelectFavorite(_ notification: NSNotification) {
-        guard let indexPath = notification.userInfo!["indexPath"] as? IndexPath else {return}
-        print("sendDeSelectFavorite \(indexPath.row)")
+//        guard let indexPath = notification.userInfo!["indexPath"] as? IndexPath else {return}
+    }
+
+    private func updateData() {
+        DatabaseManager.fetchRecipes()
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -176,8 +188,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         guard let recipies = recipies?.results else {
             return MainTableViewCell()
         }
+        cell.isSelectedFavorite = false
+        if DatabaseManager.savedRecipes.contains(where: { $0.recipeID == recipies[indexPath.row].id }) {
+            cell.isSelectedFavorite = true
+        }
         cell.configure(with: (recipies[indexPath.row]))
-        cell.indexPath = indexPath
         let item = recipies[indexPath.row].image
         let url = URL(string: item ?? "")
         cell.icon.kf.setImage(with: url)

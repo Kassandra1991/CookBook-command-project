@@ -45,6 +45,7 @@ final class CategoryViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         fetchData()
+        updateData()
     }
     
     init(categoryName: String) {
@@ -65,6 +66,15 @@ final class CategoryViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: categoryNameLabel.bottomAnchor, constant: 20),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
         ])
+    }
+    
+    
+    private func updateData() {
+        DatabaseManager.fetchRecipes()
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -107,6 +117,11 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.dishLabel.text = dish.dishName
         
+        cell.isSelectedFavorite = false
+        if DatabaseManager.savedRecipes.contains(where: { $0.recipeID == idArray[indexPath.row] }) {
+            cell.isSelectedFavorite = true
+        }
+        cell.configureHeartButton()
         
         if let imageURL = URL(string: dish.dishImage ?? "") {
             cell.dishImage.kf.setImage(with: imageURL)
