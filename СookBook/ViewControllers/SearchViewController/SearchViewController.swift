@@ -11,21 +11,14 @@ class SearchViewController: UIViewController {
 
     // MARK: - constants
     enum Constants {
-        static let receipeLabel: String = "Find best recipes for cooking"
         static let searchTextFieldLabel: String = "Search recepies"
-        static let trendLabel: String = "Trending now 🔥"
         static let bookmarkImage: String = "heart"
         static let searchImage: String = "search"
         static let tabBarImage: String = "house.fill"
         static let topViewSideSpacing: CGFloat = 20.0
-        static let receipeLabelHeight: CGFloat = 58.0
-        static let searchTFTopSpacing: CGFloat = 28.0
         static let searchTFHeight: CGFloat = 44.0
-        static let topViewHeight: CGFloat = 198.0
-        static let trendTitleTopSpacing: CGFloat = 20.0
+        static let topViewHeight: CGFloat = 44.0
         static let tableViewTopSpacing: CGFloat = 20.0
-        static let trendViewHeight: CGFloat = 28.0
-        static let numberOfLines: Int = 2
         static let heightForRow: CGFloat = 104.0
         static let searchImageViewSide: CGFloat = 20.0
     }
@@ -33,18 +26,17 @@ class SearchViewController: UIViewController {
     // MARK: - property
     
     var networkManager = NetworkManager()
+
+    private lazy var searchStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        return stackView
+    }()
     
     private lazy var topView: UIView = {
         let view = UIView()
         return view
-    }()
-    
-    private lazy var receipeLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = Constants.numberOfLines
-        label.text = Constants.receipeLabel
-        label.font = .poppinsBold24()
-        return label
     }()
     
     private lazy var searchImageView: UIImageView = {
@@ -61,16 +53,6 @@ class SearchViewController: UIViewController {
         tf.leftView = searchImageView
         return tf
     }()
-    
-    let titleTrendLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constants.trendLabel
-        label.font = .poppinsBold20()
-        label.numberOfLines = Constants.numberOfLines
-        label.sizeToFit()
-        label.textColor = UIColor.specialBlack
-        return label
-       }()
     
     private var recipies: RecipeData?
     
@@ -100,9 +82,10 @@ class SearchViewController: UIViewController {
     }
     
     private func addSubViews() {
-        topView.addSubview(receipeLabel)
+        view.addSubview(searchStackView)
+        searchStackView.addArrangedSubview(topView)
+        searchStackView.addArrangedSubview(tableView)
         topView.addSubview(searchTextField)
-        topView.addSubview(titleTrendLabel)
     }
     
     func configureView() {
@@ -117,40 +100,33 @@ class SearchViewController: UIViewController {
     }
     
     private func setConstraints() {
-        
+        searchStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            topView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.topViewSideSpacing),
-            topView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.topViewSideSpacing),
-            topView.heightAnchor.constraint(equalToConstant: Constants.topViewHeight),
+            searchStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        receipeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            receipeLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor),
-            receipeLabel.topAnchor.constraint(equalTo: topView.topAnchor),
-            receipeLabel.heightAnchor.constraint(equalToConstant: Constants.receipeLabelHeight),
-            receipeLabel.trailingAnchor.constraint(equalTo: topView.trailingAnchor)
+            topView.topAnchor.constraint(equalTo: searchStackView.topAnchor),
+            topView.leadingAnchor.constraint(equalTo: searchStackView.leadingAnchor, constant: Constants.topViewSideSpacing),
+            topView.trailingAnchor.constraint(equalTo: searchStackView.trailingAnchor, constant: -Constants.topViewSideSpacing),
+            topView.heightAnchor.constraint(equalToConstant: Constants.topViewHeight),
         ])
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            searchTextField.topAnchor.constraint(equalTo: receipeLabel.bottomAnchor, constant: Constants.searchTFTopSpacing),
+            searchTextField.topAnchor.constraint(equalTo: topView.topAnchor),
             searchTextField.leadingAnchor.constraint(equalTo: topView.leadingAnchor),
             searchTextField.trailingAnchor.constraint(equalTo: topView.trailingAnchor),
             searchTextField.heightAnchor.constraint(equalToConstant: Constants.searchTFHeight)
         ])
-        titleTrendLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            titleTrendLabel.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: Constants.trendTitleTopSpacing),
-            titleTrendLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor),
-            titleTrendLabel.trailingAnchor.constraint(equalTo: topView.trailingAnchor),
-            titleTrendLabel.heightAnchor.constraint(equalToConstant: Constants.trendViewHeight)
-        ])
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Constants.tableViewTopSpacing),
-            tableView.bottomAnchor.constraint(equalTo: topView.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: topView.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: topView.trailingAnchor)
+            tableView.bottomAnchor.constraint(equalTo: searchStackView.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: searchStackView.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: searchStackView.trailingAnchor)
         ])
     }
 }
